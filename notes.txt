@@ -1,0 +1,10 @@
+Notes from the excersize:
+    -be careful to pass objects to finding functions in the server files (not raw strings)
+    -":" makes @Param elemets dynamic
+    -some requests will fail as 404 Not Found if not structures as async
+    -schema/interface syntax
+    -the MongooseModule.ForFeature() compilation of the mongoose Model & the schema happens in the imports field of the resource's module file
+    -The instatntiation of a Model for use in requests in the constructor happens in the resource's service file
+    -you nwws to instantiate a service-object to be used to make function calls in the controller file
+    -your database connection link should be added to your app's module file in the MongooseModule.forRoot in the inputs array
+    -call UseGlobalPipes and new ValidationPipe to apply your DTO specifications like Min and Max to the instances you create

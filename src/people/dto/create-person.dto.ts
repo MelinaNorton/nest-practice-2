@@ -1,20 +1,24 @@
 import {IsString, IsInt, IsBoolean, Min, Max, IsOptional} from "@nestjs/class-validator";
+import { Type } from 'class-transformer';
+
 export class CreatePersonDto {
 
     @IsString()
-    readonly firstname : String;
+    readonly firstname : string;
 
     @IsString()
-    lastname: String;
+    lastname: string;
 
+    @Type(()=> Number)
     @IsInt()
     @Min(0)
     @Max(100)
-    age: Number;
+    age: number;
 
     @IsString()
-    email: String;
+    email: string;
 
+    @Type(()=> Boolean)
     @IsBoolean()
-    isCool: Boolean;
+    isCool: boolean;
 }

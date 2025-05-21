@@ -28,7 +28,7 @@ export class PeopleService {
     const query: any = {};
     if(filter.firstname !=undefined){query.firstname = filter.firstname;}
     if(filter.lastname !=undefined){query.lastname = filter.lastname;}
-    if(filter.age !=undefined){query.age = filter.firstname;}
+    if(filter.age !=undefined){query.age = filter.age;}
     if(filter.email !=undefined){query.email = filter.email;}
     if(filter.isCool !=undefined){query.isCool = filter.isCool;}
 
