@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseBoolPipe} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseBoolPipe, ParseIntPipe} from '@nestjs/common';
 import { PeopleService } from './people.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
@@ -14,9 +14,12 @@ export class PeopleController {
   }
 
   @Get()
-  findAll(@Query('isCool', new ParseBoolPipe({ optional : true })) isCool?) {
+  findAll(@Query('isCool', new ParseBoolPipe({ optional : true })) isCool?, @Query('age', new ParseIntPipe({ optional : true})) age?) {
     if(typeof isCool === 'boolean'){
       return this.peopleService.findCoolPeople(isCool);
+    }
+    else if(typeof age === 'number'){
+      return this.peopleService.findAllAges(age);
     }
     return this.peopleService.findAll();
   }

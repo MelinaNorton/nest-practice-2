@@ -98,13 +98,21 @@ export class PeopleService {
 
   async findCoolPeople(isCool: boolean, filter: PeopleFilter = {}): Promise<People[]>{
     filter.isCool = isCool;
-    const found = this.peopleModel.find(filter);
+    const found = await this.peopleModel.find(filter);
     if(!found){
       throw new NotFoundException('No Matches Found');
     }
     return found;
   }
 
+  async findAllAges(age: number, filter: PeopleFilter = {}): Promise<People[]>{
+    filter.age = age;
+    const found = await this.peopleModel.find(filter);
+    if(!found){
+      throw new NotFoundException('No Matches Found');
+    }
+    return found;
+  }
   async updateFirstName(filter: PeopleFilter, newFirstName: string, updatePersonDto: UpdatePersonDto) {
     const updated = {
       ...updatePersonDto,
