@@ -1,7 +1,7 @@
-export interface People{
-    firstname: String,
-    lastname: String,
-    age: Number,
-    email: String,
+export interface People {
+    firstname: string,
+    lastname: string,
+    age: number,
+    email: string,
     isCool: boolean
 }
