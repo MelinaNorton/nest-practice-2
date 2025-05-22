@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseBoolPipe, ParseIntPipe} from '@nestjs/common';
-import { PeopleService } from './people.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
+import { QueryPeopleDto } from './dto/query-people.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
-import { PeopleFilter } from './people.service';
+import { PeopleService } from './people.service';
 
 @Controller('people')
 export class PeopleController {
@@ -14,14 +14,8 @@ export class PeopleController {
   }
 
   @Get()
-  findAll(@Query('isCool', new ParseBoolPipe({ optional : true })) isCool?, @Query('age', new ParseIntPipe({ optional : true})) age?) {
-    if(typeof isCool === 'boolean'){
-      return this.peopleService.findCoolPeople(isCool);
-    }
-    else if(typeof age === 'number'){
-      return this.peopleService.findAllAges(age);
-    }
-    return this.peopleService.findAll();
+  findAll(@Query() query: QueryPeopleDto) {
+    return this.peopleService.findAll(query);
   }
 
   @Get(':name')
@@ -35,17 +29,17 @@ export class PeopleController {
   }
 
   @Get(':firstname/lastname')
-  getLastfromFirst(@Param('firstname') firstname: string){
+  getLastfromFirst(@Param('firstname') firstname: string) {
     return this.peopleService.findLastFromFirst(firstname);
   }
 
   @Get(':lastname/firstname')
-  getFirstFromLast(@Param('lastname') lastname : string){
+  getFirstFromLast(@Param('lastname') lastname: string) {
     return this.peopleService.findFirstFromLast(lastname);
   }
 
   @Get(':name/age')
-  getAgeFromName(@Param('name') name : string){
+  getAgeFromName(@Param('name') name: string) {
     return this.peopleService.findAgeFromName(name);
   }
 
