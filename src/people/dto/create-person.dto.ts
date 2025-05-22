@@ -21,4 +21,10 @@ export class CreatePersonDto {
     @Type(()=> Boolean)
     @IsBoolean()
     isCool: boolean;
+
+    @IsString()
+    username : string;
+
+    @IsString()
+    password : string;
 }

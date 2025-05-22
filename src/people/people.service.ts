@@ -6,6 +6,8 @@ import { People } from './interface/people.interface'
 import { Model } from 'mongoose'
 import { Logger } from '@nestjs/common';
 import { QueryPeopleDto } from './dto/query-people.dto';
+import {hash} from 'bcrypt';
+import * as bcrypt from 'bcrypt'
 
 export interface PeopleFilter {
   firstname?: string,
@@ -20,7 +22,14 @@ export class PeopleService {
   constructor(
     @InjectModel('People') private readonly peopleModel: Model<People>,) { }
 
-  create(createPersonDto: CreatePersonDto): Promise<People> {
+  async create(createPersonDto: CreatePersonDto): Promise<People> {
+    require('bcrypt');
+    const salt = await bcrypt.genSalt(10);
+    const securepasswprd = await bcrypt.hash(createPersonDto.password, salt);
+    const securePerson = new this.peopleModel({
+      ... createPersonDto,
+      password: securepasswprd,
+    })
     const newPerson = new this.peopleModel(createPersonDto);
     return newPerson.save();
   }
