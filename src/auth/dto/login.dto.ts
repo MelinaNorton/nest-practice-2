@@ -4,7 +4,7 @@ import { Type } from 'class-transformer';
 export class Login {
 
     @IsString()
-    email: string;
+    username: string;
 
     @IsString()
     password: string;

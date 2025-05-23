@@ -3,11 +3,27 @@ import { Type } from 'class-transformer';
 
 export class SignUpDto {
     @IsString()
-    name: string;
+    firstname : string;
+
+    @IsString()
+    lastname: string;
+
+    @Type(()=> Number)
+    @IsInt()
+    @Min(0)
+    @Max(100)
+    age: number;
 
     @IsString()
     email: string;
 
+    @Type(()=> Boolean)
+    @IsBoolean()
+    isCool: boolean;
+
     @IsString()
     password: string;
+
+    @IsString()
+    username : string;
 }

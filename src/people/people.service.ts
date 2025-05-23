@@ -7,7 +7,10 @@ import { Model } from 'mongoose'
 import { Logger } from '@nestjs/common';
 import { QueryPeopleDto } from './dto/query-people.dto';
 import {hash} from 'bcrypt';
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcryptjs'
+import { UnauthorizedException} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 export interface PeopleFilter {
   firstname?: string,
@@ -20,7 +23,7 @@ export interface PeopleFilter {
 @Injectable()
 export class PeopleService {
   constructor(
-    @InjectModel('People') private readonly peopleModel: Model<People>,) { }
+    @InjectModel('People') private readonly peopleModel: Model<People>, private jwtService: JwtService, private configService: ConfigService) { }
 
   async create(createPersonDto: CreatePersonDto): Promise<People> {
     require('bcrypt');
@@ -31,7 +34,9 @@ export class PeopleService {
       password: securepasswprd,
     })
     const newPerson = new this.peopleModel(createPersonDto);
-    return newPerson.save();
+    await newPerson.save();
+
+    return newPerson;
   }
 
   findAll(mergefilter: QueryPeopleDto): Promise<People[]> {
@@ -51,6 +56,7 @@ export class PeopleService {
         $or: [
           { firstname: name },
           { lastname: name },
+          { username : name }
         ],
       })
       .exec();
