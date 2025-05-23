@@ -72,4 +72,23 @@ export class AuthService {
         }
         return changed;
     }
+
+    async forgotPassReset({username, password, email} : UpdatePersonDto):Promise<People>{
+        if(!username || !password || !email){
+            throw new NotFoundException("Missing Required Fields");
+        }
+        const exists = await this.peopleService.findOneByName(username);
+        if(!exists){
+            throw new NotFoundException("User does not exist");
+        }
+        const exists_emailcheck = await this.peopleService.findOneByName(email);
+        if(!exists_emailcheck){
+             throw new NotFoundException("Email does not exist")
+        }
+        const changed = await this.peopleService.updatePass({username : username}, password, {username, password})
+        if(!changed){
+            throw new NotFoundException("User does not exist");
+        }
+        return changed;
+    }
 }

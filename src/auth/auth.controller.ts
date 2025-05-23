@@ -25,4 +25,9 @@ export class AuthController {
         console.log("reset service activated");
         return this.authservice.resetPass(updatePersonDto);
     }
+
+    @Patch(':forgot/pass')
+    forgotPass(@Body() updatePersonDto : UpdatePersonDto){
+        return this.authservice.forgotPassReset(updatePersonDto);
+    }
 }
