@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
@@ -6,6 +6,7 @@ import { CreatePersonDto } from 'src/people/dto/create-person.dto';
 import { PeopleService } from 'src/people/people.service';
 import { LoginDto } from 'src/users/dto/login-user.dto';
 import { People } from 'src/people/interface/people.interface';
+import { UpdatePersonDto } from 'src/people/dto/update-person.dto';
 //the basic auth functions defined here are: signup & login
 //it uses instances of UsersService, JwtService, and ConfigService to access
 //methods and fields like our secret, expiry time, hash() and sign()
@@ -58,5 +59,17 @@ export class AuthService {
 
 
         return {token};
+    }
+
+    async resetPass({username, password} : UpdatePersonDto):Promise<People>{
+        if(!username || !password){
+            throw new NotFoundException("Missing Required Fields");
+        }
+        const filter = {username : username};
+        const changed = await this.peopleService.updatePass(filter, password, {username, password});
+        if(!changed){
+            throw new NotFoundException("User does not exist");
+        }
+        return changed;
     }
 }

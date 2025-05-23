@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from 'src/users/dto/login-user.dto';
 import { SignUpDto } from './dto/signup.dto';
 import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { UpdatePersonDto } from 'src/people/dto/update-person.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -15,6 +16,13 @@ export class AuthController {
 
     @Patch(':login')
     loginUser(@Body() loginDto: LoginDto){
+        console.log("login service activated");
         return this.authservice.login(loginDto);
+    }
+
+    @Patch(':reset/pass')
+    resetPass(@Body() updatePersonDto: UpdatePersonDto){
+        console.log("reset service activated");
+        return this.authservice.resetPass(updatePersonDto);
     }
 }

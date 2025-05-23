@@ -18,6 +18,7 @@ export interface PeopleFilter {
   age?: number,
   email?: string,
   isCool?: boolean,
+  username? : string
 }
 
 @Injectable()
@@ -141,6 +142,19 @@ export class PeopleService {
     return changed;
   }
 
+  async updatePass(filter: PeopleFilter, newPass: string, updatePersonDto: UpdatePersonDto) {
+    const salt = await bcrypt.genSalt(10);
+    const securepassword = await bcrypt.hash(newPass, salt);
+    const updated = {
+      ...updatePersonDto,
+      password: securepassword
+    }
+    const changed = await this.peopleModel.findOneAndUpdate(filter, updated, { new: true });
+    if (!changed) {
+      throw new NotFoundException("No Person Foud by that name!");
+    }
+    return changed;
+  }
   async removeByAnyName(name: string): Promise<People> {
     const found = await this.peopleModel.findOneAndDelete({
       $or: [
