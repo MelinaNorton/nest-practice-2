@@ -31,6 +31,14 @@ const AddPerson = () => {
             .post("http://localhost:33333/auth/signup", newPerson)
             .then((response) =>{
                 setResponse("Successful Post!");
+                setFirst("");
+                setLast("");
+                setUser("");
+                setEmail("");
+                setAge(0);
+                setCool(false);
+                setPass("");
+                setResponse("");
             })
             .catch((error) => {
                 setResponse("Unsuccessful Post :(!");
@@ -43,7 +51,7 @@ const AddPerson = () => {
 //state (something empty or null), and if a change-event is detected the new value
 //is set
     return (
-        <div>
+        <div className="max-w-md flex-row font-semibold border border-black divide-y divide-black">
             <form onSubmit ={handleSubmit}>
                 <input 
                 id="firstname"
@@ -94,7 +102,7 @@ const AddPerson = () => {
                 checked={isCool}
                 onChange={(e) => setCool(e.target.checked)}
                 />
-                <button type="submit">Submit</button>
+                <button type="submit" className="shadow-md bg-sky-400 hover:bg-sky-200">Submit</button>
             </form>
             <p>{responseMessage}</p>
         </div>
