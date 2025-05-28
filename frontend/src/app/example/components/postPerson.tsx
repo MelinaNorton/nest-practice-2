@@ -1,5 +1,5 @@
 'use client'
-import React, { useState }  from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { error } from "console";
 
@@ -26,10 +26,11 @@ const AddPerson = () => {
             password
         }
 
-        console.log("newPerson:", newPerson);
+
+
         axios
-            .post("http://localhost:33333/auth/signup", newPerson)
-            .then((response) =>{
+            .post("http://localhost:3004/auth/signup", newPerson, { withCredentials: true })
+            .then((response) => {
                 setResponse("Successful Post!");
                 setFirst("");
                 setLast("");
@@ -45,62 +46,62 @@ const AddPerson = () => {
             });
     };
 
-//when writing the form for submitting a new person to the DB, the "setters" defined
-//above are called, and each field's states are altered according to the input.
-//The default for each field's "value=" field is the {~field~} set as the initial
-//state (something empty or null), and if a change-event is detected the new value
-//is set
+    //when writing the form for submitting a new person to the DB, the "setters" defined
+    //above are called, and each field's states are altered according to the input.
+    //The default for each field's "value=" field is the {~field~} set as the initial
+    //state (something empty or null), and if a change-event is detected the new value
+    //is set
     return (
         <div className="max-w-md flex-row font-semibold border border-black divide-y divide-black">
-            <form onSubmit ={handleSubmit}>
-                <input 
-                id="firstname"
-                type="text"
-                placeholder="firstname"
-                value={firstname}
-                onChange={(e) => setFirst(e.target.value)}
+            <form onSubmit={handleSubmit}>
+                <input
+                    id="firstname"
+                    type="text"
+                    placeholder="firstname"
+                    value={firstname}
+                    onChange={(e) => setFirst(e.target.value)}
                 />
-                <input 
-                id="lastname"
-                type="text"
-                placeholder="lastname"
-                value={lastname}
-                onChange={(e) => setLast(e.target.value)}
+                <input
+                    id="lastname"
+                    type="text"
+                    placeholder="lastname"
+                    value={lastname}
+                    onChange={(e) => setLast(e.target.value)}
                 />
-                <input 
-                id="username"
-                type="text"
-                placeholder="username"
-                value={username}
-                onChange={(e) => setUser(e.target.value)}
+                <input
+                    id="username"
+                    type="text"
+                    placeholder="username"
+                    value={username}
+                    onChange={(e) => setUser(e.target.value)}
                 />
-                 <input 
-                id="email"
-                type="text"
-                placeholder="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                <input
+                    id="email"
+                    type="text"
+                    placeholder="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
-                <input 
-                id="password"
-                type="password"
-                placeholder="password"
-                value={password}
-                onChange={(e) => setPass(e.target.value)}
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="password"
+                    value={password}
+                    onChange={(e) => setPass(e.target.value)}
                 />
-                <input 
-                id="age"
-                type="number"
-                placeholder="age"
-                value={age}
-                onChange={(e) => setAge(Number(e.target.value))}
+                <input
+                    id="age"
+                    type="number"
+                    placeholder="age"
+                    value={age}
+                    onChange={(e) => setAge(Number(e.target.value))}
                 />
-                <input 
-                id="isCool"
-                type="checkbox"
-                placeholder="cool status"
-                checked={isCool}
-                onChange={(e) => setCool(e.target.checked)}
+                <input
+                    id="isCool"
+                    type="checkbox"
+                    placeholder="cool status"
+                    checked={isCool}
+                    onChange={(e) => setCool(e.target.checked)}
                 />
                 <button type="submit" className="shadow-md bg-sky-400 hover:bg-sky-200">Submit</button>
             </form>

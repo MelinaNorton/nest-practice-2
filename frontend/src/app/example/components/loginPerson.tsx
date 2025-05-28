@@ -15,8 +15,9 @@ const LoginPerson = () => {
             password
         }
 
+        axios.defaults.withCredentials = true;
         axios
-            .patch("http://localhost:33333/auth/login", loginData)
+            .patch("http://localhost:3004/auth/login", loginData, {withCredentials: true})
             .then((response) =>{
                 setResponse("Successful Post!");
                 setUsername("");

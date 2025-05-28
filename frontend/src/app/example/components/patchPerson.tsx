@@ -9,8 +9,10 @@ const PatchName = () => {
 
     const handlePatch= (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        
          axios
-            .patch(`http://localhost:33333/people/${encodeURIComponent(oldname)}`, {newFirstName:firstname})
+            .patch(`http://localhost:3004/people/${encodeURIComponent(oldname)}`, {newFirstName:firstname},  {withCredentials: true})
             .then((response) =>{
         setResponse("Successful Patch!");
                 setNewName("");

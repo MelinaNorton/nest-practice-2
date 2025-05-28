@@ -2,6 +2,7 @@ import React from 'react';
 import AddPerson from "./components/postPerson";
 import PatchName from './components/patchPerson';
 import LoginPerson from "./components/loginPerson"
+import ForgotPass from './components/forgotPass';
 
 export default function Page() {
     return(
@@ -10,6 +11,7 @@ export default function Page() {
       <AddPerson />
       <PatchName />
       <LoginPerson />
+      <ForgotPass />
     </main>
     );
 }

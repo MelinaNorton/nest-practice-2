@@ -6,9 +6,9 @@ import { People } from './interface/people.interface'
 import { Model } from 'mongoose'
 import { Logger } from '@nestjs/common';
 import { QueryPeopleDto } from './dto/query-people.dto';
-import {hash} from 'bcrypt';
+import { hash } from 'bcrypt';
 import * as bcrypt from 'bcryptjs'
-import { UnauthorizedException} from '@nestjs/common';
+import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
@@ -18,7 +18,7 @@ export interface PeopleFilter {
   age?: number,
   email?: string,
   isCool?: boolean,
-  username? : string
+  username?: string
 }
 
 @Injectable()
@@ -31,7 +31,7 @@ export class PeopleService {
     const salt = await bcrypt.genSalt(10);
     const securepasswprd = await bcrypt.hash(createPersonDto.password, salt);
     const securePerson = new this.peopleModel({
-      ... createPersonDto,
+      ...createPersonDto,
       password: securepasswprd,
     })
     const newPerson = new this.peopleModel(createPersonDto);
@@ -42,12 +42,10 @@ export class PeopleService {
 
   findAll(mergefilter: QueryPeopleDto): Promise<People[]> {
     const definedfilter: QueryPeopleDto = {};
-    console.log('mergefilter', mergefilter)
     if (mergefilter.firstname != undefined) { definedfilter.firstname = mergefilter.firstname; }
     if (mergefilter.lastname != undefined) { definedfilter.lastname = mergefilter.lastname; }
     if (mergefilter.isCool != undefined) { definedfilter.isCool = mergefilter.isCool }
     if (mergefilter.age != undefined) { definedfilter.age = mergefilter.age }
-    console.log('definedfilter', definedfilter);
     return this.peopleModel.find(definedfilter).exec();
   }
 
@@ -57,7 +55,7 @@ export class PeopleService {
         $or: [
           { firstname: name },
           { lastname: name },
-          { username : name }
+          { username: name }
         ],
       })
       .exec();
@@ -130,7 +128,7 @@ export class PeopleService {
     }
     return found;
   }
-  async updateFirstName(filter: PeopleFilter, newFirstName: string, updatePersonDto: UpdatePersonDto) {
+  async updateFirstName(filter: PeopleFilter, newFirstName: string, updatePersonDto: UpdatePersonDto,) {
     const updated = {
       ...updatePersonDto,
       firstname: newFirstName
