@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { PeopleModule } from './../people/people.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { JwtStrategy } from './jwt.strategy';
+import { JwtAuthGuard } from './jwt.auth.guard';
+
 require("dotenv").config();
 //this module includes the controller and services for authentication, but
 //also very importantly...
@@ -37,7 +40,8 @@ require("dotenv").config();
     AuthController
   ],
   providers: [
-    AuthService,
+    AuthService, JwtStrategy, JwtAuthGuard
   ],
+  exports: [PassportModule, JwtModule]
 })
 export class AuthModule { }
