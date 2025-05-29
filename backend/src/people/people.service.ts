@@ -70,6 +70,7 @@ export class PeopleService {
       $or: [
         { firstname: name },
         { lastname: name },
+        { username : name },
       ],
     }).exec();
     if (!found) {

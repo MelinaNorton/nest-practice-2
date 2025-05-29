@@ -63,6 +63,7 @@ export class AuthService {
 
     async resetPass({ username, password }: UpdatePersonDto): Promise<People> {
         if (!username || !password) {
+            console.log({username, password});
             throw new NotFoundException("Missing Required Fields");
         }
         const filter = { username: username };

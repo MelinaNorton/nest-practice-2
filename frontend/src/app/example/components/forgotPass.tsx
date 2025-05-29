@@ -1,6 +1,7 @@
 'use client'
 import React, { useState }  from "react";
 import axios from "axios";
+import NewPassForm from "./newPassForm";
 
 const ForgotPass = () => {
     const [username, setUsername] = useState("");
@@ -8,36 +9,42 @@ const ForgotPass = () => {
     const [checkpass, setCheckPass] = useState("");
     const [email, setEmail] = useState("");
     const [response, setResponse] = useState("");
+    const [validEmail, setValidEmail] = useState(false);
 
     const handleForgottenPass = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(password != checkpass){
-            setResponse("Passwords don't match!!");
-            return;
-        }
 
         const validateData = {
             username,
-            password,
             email
         }
 
-        axios
-            .patch("http://localhost:3004/auth/forgot/pass", validateData)
+     axios
+        .get(`http://localhost:3004/people/${validateData.username}`)
             .then(response=> {
-                setResponse("Successful Post!");
-                setUsername("");
+                //setUsername("");
                 setEmail("");
-                setPass("");
+                console.log("valid email!");
+                if(response.data.email == email){
+                    setValidEmail(true)
+                }
+                else{
+                    setResponse("no email matches user :(");
+                    setUsername("");
+                    setEmail("");
+                }
+                return;
             })
             .catch((error) =>{
-                setResponse("Unsuccessfull Post!");
+                setResponse("no email matches user :(");
                 setUsername("");
                 setEmail("");
-                setPass("");
+                return;
             })
     }
-    
+    if(validEmail){
+        return <NewPassForm username={username} setUsername={setUsername}/>
+    }
     return (
         <div className="max-w-md flex-row font-semibold border border-black divide-y divide-black">
             <form onSubmit ={handleForgottenPass}>
@@ -54,20 +61,6 @@ const ForgotPass = () => {
                 placeholder="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                />
-                <input 
-                id="Newpass"
-                type="password"
-                placeholder="new password"
-                value={password}
-                onChange={(e) => setPass(e.target.value)}
-                />
-                <input 
-                id="Checkpass"
-                type="checkpass"
-                placeholder="retype password"
-                value={password}
-                onChange={(e) => setCheckPass(e.target.value)}
                 />
                 <button type="submit" className="shadow-md bg-sky-400 hover:bg-sky-200">Submit</button>
                 <p>{response}</p>
