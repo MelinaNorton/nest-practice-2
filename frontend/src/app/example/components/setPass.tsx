@@ -31,27 +31,33 @@ const SetPass = ({username, setUsername}:username) => {
         }
     }
     if(success){
-            return <p>Successful Reset!</p>
+            return <p className="font-bold text-gray-800 italic">Successful Reset!</p>
     }
     return(
-        <form onSubmit={executeReset}>
-            <input 
-                id="newpass"
-                type="password"
-                placeholder="new password"
-                value={pass}
-                onChange={(e) => setNewPass(e.target.value)}
-                />
+        <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
+            <form onSubmit={executeReset}>
                 <input 
-                id="checkpass"
-                type="password"
-                placeholder="retype password"
-                value={checkpass}
-                onChange={(e) => setCheckPass(e.target.value)}
-                />
-                <button type="submit" className="shadow-md bg-sky-400 hover:bg-sky-200">Submit</button>
-                <p>{response}</p>
-        </form>
+                    id="newpass"
+                    type="password"
+                    placeholder="new password"
+                    value={pass}
+                    onChange={(e) => setNewPass(e.target.value)}
+                    className="font-bold text-gray-400"
+                    />
+                    <input 
+                    id="checkpass"
+                    type="password"
+                    placeholder="retype password"
+                    value={checkpass}
+                    onChange={(e) => setCheckPass(e.target.value)}
+                    className="font-bold text-gray-400"
+                    />
+                    <br/>
+                    <br/>
+                    <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50">Submit</button>
+                    <p className="font-bold text-gray-800 italic">{response}</p>
+            </form>
+        </div>
     );
 }
 export default SetPass;

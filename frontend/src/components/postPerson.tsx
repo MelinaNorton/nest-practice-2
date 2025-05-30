@@ -52,70 +52,69 @@ const AddPerson = () => {
     //state (something empty or null), and if a change-event is detected the new value
     //is set
     return (
-        <div className="pb-2 pl-4 pr-1 pt-2 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
+        <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="form-card">
             <form onSubmit={handleSubmit}>
                 <input
                     id="firstname"
+                    className = "w-full mb-4 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
                     type="text"
                     placeholder="firstname"
                     value={firstname}
                     onChange={(e) => setFirst(e.target.value)}
-                    className="font-bold text-gray-400"
                 />
                 <input
                     id="lastname"
+                    className = "form-input"
                     type="text"
                     placeholder="lastname"
                     value={lastname}
                     onChange={(e) => setLast(e.target.value)}
-                    className="font-bold text-gray-400"
                 />
                 <input
                     id="username"
+                    className = "form-input"
                     type="text"
                     placeholder="username"
                     value={username}
                     onChange={(e) => setUser(e.target.value)}
-                    className="font-bold text-gray-400"
                 />
                 <input
                     id="email"
+                    className = "form-input"
                     type="text"
                     placeholder="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="font-bold text-gray-400"
                 />
                 <input
                     id="password"
+                    className = "form-input"
                     type="password"
                     placeholder="password"
                     value={password}
                     onChange={(e) => setPass(e.target.value)}
-                    className="font-bold text-gray-400"
                 />
                 <input
                     id="age"
+                    className = "form-input"
                     type="number"
                     placeholder="age"
                     value={age}
                     onChange={(e) => setAge(Number(e.target.value))}
-                    className="font-bold text-gray-400"
                 />
-                <br/>
-                <br/>
                 <input
                     id="isCool"
+                    className = "form-input"
                     type="checkbox"
                     placeholder="cool status"
                     checked={isCool}
                     onChange={(e) => setCool(e.target.checked)}
                 />
-                <br/>
-                <br/>
-                <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50" >Submit</button>
+                <button type="submit" className="submitbtn clickable">Submit</button>
             </form>
-            <p className="font-bold text-gray-800 italic">{responseMessage}</p>
+            <p>{responseMessage}</p>
+        </div>
         </div>
     );
 };
