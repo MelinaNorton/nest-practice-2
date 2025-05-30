@@ -16,19 +16,18 @@ export class PeopleController {
     return this.peopleService.create(createPersonDto);
   }
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Query() query: QueryPeopleDto) {
     return this.peopleService.findAll(query);
   }
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get(':name')
   findOne(@Param('name') name: string) {
     return this.peopleService.findOneByName(name);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':name/email')
   findOneEmail(@Param('name') name: string) {
     return this.peopleService.findEmailAnyName(name);

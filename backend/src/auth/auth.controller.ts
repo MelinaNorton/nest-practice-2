@@ -32,7 +32,7 @@ export class AuthController {
         return { success: true };
     }
 
-    @UseGuards(JwtAuthGuard)
+    
     @Patch('reset/pass')
     resetPass(@Body() updatePersonDto: UpdatePersonDto) {
         return this.authservice.resetPass(updatePersonDto);

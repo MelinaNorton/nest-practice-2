@@ -2,12 +2,15 @@
 import axios from "axios";
 import { useState } from "react";
 type username = { username: string; setUsername: (u: string) => void };
+import { useRouter } from 'next/navigation'
 
 const SetPass = ({username, setUsername}:username) => {
     const [pass, setNewPass] = useState("");
     const [checkpass, setCheckPass] = useState("");
     const [success, setSuccess] = useState(false);
     const [response, setResponse] = useState("");
+    const router = useRouter();
+
     setUsername(username);
 
     const executeReset = (e: React.FormEvent<HTMLFormElement>) =>{
@@ -24,6 +27,7 @@ const SetPass = ({username, setUsername}:username) => {
                     setCheckPass("");
                     console.log("password reset!");
                     setSuccess(true);
+                    router.push('./');
                 })
                 .catch(error =>{
                      setResponse("no email matches user :(");
@@ -31,7 +35,7 @@ const SetPass = ({username, setUsername}:username) => {
         }
     }
     if(success){
-            return <p className="font-bold text-gray-800 italic">Successful Reset!</p>
+            return <p className="font-bold text-gray-400">Success!</p>
     }
     return(
         <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">

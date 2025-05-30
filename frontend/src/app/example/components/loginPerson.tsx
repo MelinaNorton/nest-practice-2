@@ -1,11 +1,14 @@
 'use client'
 import React, { useState }  from "react";
 import axios from "axios";
+import { useRouter } from 'next/navigation'
 
 const LoginPerson = () => {
     const [username, setUsername] = useState("");
     const [password, setPass] = useState("");
     const [response, setResponse] = useState("");
+    const [loggedIn, setLoggedIn] = useState(false);
+    const router = useRouter();
 
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -22,13 +25,17 @@ const LoginPerson = () => {
                 setResponse("Successful Post!");
                 setUsername("");
                 setPass("");
+                setLoggedIn(true);
+                router.push('./example/protectedroute');
             })
             .catch((error) => {
                 setResponse("Unsuccessful Post :(!");
             });
         
     }
-
+    if(loggedIn){
+        return <p className="font-bold text-gray-800 italic">Successful login!</p>
+    }
     return (
         <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
             <form onSubmit ={handleLogin}>

@@ -36,7 +36,7 @@ const ForgotPass = () => {
                 return;
             })
             .catch((error) =>{
-                setResponse("no email matches user :(");
+                setResponse("error matching user :(");
                 setUsername("");
                 setEmail("");
                 return;
