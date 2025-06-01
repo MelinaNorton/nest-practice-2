@@ -31,7 +31,7 @@ const AddPerson = () => {
         axios
             .post("http://localhost:3004/auth/signup", newPerson, { withCredentials: true })
             .then((response) => {
-                setResponse("Successful Post!");
+                setResponse("Created New User!");
                 setFirst("");
                 setLast("");
                 setUser("");
@@ -39,7 +39,6 @@ const AddPerson = () => {
                 setAge(0);
                 setCool(false);
                 setPass("");
-                setResponse("");
             })
             .catch((error) => {
                 setResponse("Unsuccessful Post :(!");

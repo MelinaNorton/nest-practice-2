@@ -8,10 +8,6 @@ export default function Page() {
     return (
         <div className = "flex flex-col items-center justify-center p-50 gap-6">
             <div className="flex flex-col items-start gap-2">
-                <h3 className="self-start pl-8 not-last:font-bold text-gray-600 text-lg font-sans">Add New person</h3>
-            <AddPerson/>
-            </div>
-            <div className="flex flex-col items-start gap-2">
                 <h3 className="self-start pl-8 not-last:font-bold text-gray-600 text-lg font-sans">Change a First Name</h3>
             <PatchName/>
             </div>

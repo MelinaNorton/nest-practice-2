@@ -46,6 +46,7 @@ const DisplayPerson = () => {
             })
             .catch((error)=>{
                 setResponse("Unsuccessful Get :(!");
+                setLoaded(false);
             })
             .finally(()=>{
                 setSearching(false);
