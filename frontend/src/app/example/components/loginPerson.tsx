@@ -3,7 +3,9 @@ import React, { useState }  from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation'
 
+
 const LoginPerson = () => {
+    const [loggedInUser, setLoggedInUser] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPass] = useState("");
     const [response, setResponse] = useState("");
@@ -45,6 +47,7 @@ const LoginPerson = () => {
                 setPass("");
                 setLoggedIn(true);
                 router.push('./example/protectedroute');
+                localStorage.setItem('username', username);
             })
             .catch((error) => {
                 setResponse("Unsuccessful Post :(!");

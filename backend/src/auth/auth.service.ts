@@ -52,12 +52,11 @@ export class AuthService {
             throw new UnauthorizedException('Invalid Password');
         }
 
-        const token = this.jwtService.sign({ id: exists.id, }, {
+        const token = this.jwtService.sign({ id: exists.id, username: exists.username}, {
             secret: this.configService.get('JWT_SECRET'),
             expiresIn: this.configService.get('JWT_EXPIRES'),
         })
-
-
+        
         return token;
     }
 
