@@ -10,6 +10,24 @@ const LoginPerson = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const router = useRouter();
 
+    const validateData = (e: React.FormEvent<HTMLFormElement>) => {
+        if(password.length > 20){
+            setResponse("Enter a password");
+        }
+        else if(password.length == 0){
+            setResponse("Enter a valid password (< 20 characters)");
+        }
+        else if(username.length > 20){
+            setResponse("Enter a valid username (< 20 characters)");
+        }
+        else if(username.length == 0){
+            setResponse("Enter a username");
+        }
+        else{
+            handleLogin(e);
+        }
+    }
+
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -38,7 +56,7 @@ const LoginPerson = () => {
     }
     return (
         <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
-            <form onSubmit ={handleLogin}>
+            <form onSubmit ={validateData}>
                 <input 
                 id="Loginusername"
                 type="text"

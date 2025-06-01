@@ -11,6 +11,31 @@ const ForgotPass = () => {
     const [response, setResponse] = useState("");
     const [validEmail, setValidEmail] = useState(false);
 
+    const validateData = (e: React.FormEvent<HTMLFormElement>) =>{
+        e.preventDefault();
+        let isValid = true;
+
+        if(username.length > 20){
+            setResponse("Enter a valid username (< 20 characters)");
+            isValid = false;
+        }
+        if(username.length == 0){
+             setResponse("Enter a username");
+             isValid = false;
+        }
+        if(email.length > 20){
+            setResponse("Enter a valid email (< 20 characters)");
+            isValid = false;
+        }
+        if(email.length == 0){
+             setResponse("Enter an email");
+             isValid = false;
+        }
+        
+        if(isValid){
+            handleForgottenPass(e);
+        }
+    }
     const handleForgottenPass = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -47,7 +72,7 @@ const ForgotPass = () => {
     }
     return (
         <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
-            <form onSubmit ={handleForgottenPass}>
+            <form onSubmit ={validateData}>
                 <input 
                 id="Loginusername"
                 type="text"

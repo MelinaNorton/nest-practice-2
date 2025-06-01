@@ -12,9 +12,9 @@ const PatchName = () => {
 
         
          axios
-            .patch(`http://localhost:3004/people/${encodeURIComponent(oldname)}`, {newFirstName:firstname},  {withCredentials: true})
+            .patch(`http://localhost:3004/people/${oldname}`, {newFirstName:firstname},  {withCredentials: true})
             .then((response) =>{
-        setResponse("Successful Patch!");
+                setResponse("Successful Patch!");
                 setNewName("");
             })
             .catch((error) => {

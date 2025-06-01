@@ -8,7 +8,20 @@ const [code, setCode] = useState("");
 //temp hardcoded val
 const [sentCode, setSentCode] = useState("1234");
 const [matched, setMatched] = useState(false)
+const [response, setResponse] = useState("");
 
+    const validateData = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        let isValid = true;
+
+        if(code.length > 4 || code.length == 0){
+            isValid = false;
+            setResponse("Enter a valid code (4 characters)");
+        }
+        if(isValid){
+            processNewCreds(e);
+        }
+    }
     const processNewCreds = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -34,6 +47,7 @@ const [matched, setMatched] = useState(false)
                     <br/>
                     <br/>
                     <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50">Submit</button>
+                    <p className="font-bold text-gray-800 italic">{response}</p>
             </form>
         </div>
     );
