@@ -15,13 +15,8 @@ import { changePass } from '@/api/peoples';
 export function useSignUp(){
     const mutation = useMutation({
         mutationFn: (data : NewPerson) => signUp(data)
-        , onSuccess: (response) => {
-            return response;
-        },
-        onError: (response) => {
-
-        }
     });
+    return mutation;
 }
 
 export function useLogIn(){

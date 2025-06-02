@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { error } from "console";
+import { useSignUp } from "@/hooks/peoplemutations";
 
 const AddPerson = () => {
     const [firstname, setFirst] = useState("");
@@ -13,9 +14,13 @@ const AddPerson = () => {
     const [password, setPass] = useState("");
     const [responseMessage, setResponse] = useState("");
 
+    //HOOK INIT AN CALL
+        const mutation = useSignUp();
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        //DATA TO BE SUBMITTED
         const newPerson = {
             firstname,
             email,
@@ -26,11 +31,9 @@ const AddPerson = () => {
             password
         }
 
-
-
-        axios
-            .post("http://localhost:3004/auth/signup", newPerson, { withCredentials: true })
-            .then((response) => {
+        
+        mutation.mutate(newPerson, {
+            onSuccess: (data) => {
                 setResponse("Created New User!");
                 setFirst("");
                 setLast("");
@@ -39,10 +42,12 @@ const AddPerson = () => {
                 setAge(0);
                 setCool(false);
                 setPass("");
-            })
-            .catch((error) => {
+            },
+            onError: (error: any) => {
                 setResponse("Unsuccessful Post :(!");
-            });
+            }
+        })
+
     };
 
     //when writing the form for submitting a new person to the DB, the "setters" defined
