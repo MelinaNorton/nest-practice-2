@@ -1,8 +1,9 @@
 'use client'
-import React, { useState }  from "react";
+import React, { useEffect, useState }  from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation'
-
+import { useMutation } from "@tanstack/react-query";
+import { useLogIn } from "@/hooks/peoplemutations";
 
 const LoginPerson = () => {
     const [loggedInUser, setLoggedInUser] = useState("");
@@ -11,6 +12,15 @@ const LoginPerson = () => {
     const [response, setResponse] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
     const router = useRouter();
+
+    //DATA TO BE SUBMITTED
+     const loginData = {
+            username,
+            password
+        }
+
+    //initialize hook
+    const mutation = useLogIn();
 
     const validateData = (e: React.FormEvent<HTMLFormElement>) => {
         if(password.length > 20){
@@ -29,30 +39,25 @@ const LoginPerson = () => {
             handleLogin(e);
         }
     }
-
+    
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const loginData = {
-            username,
-            password
-        }
-
+        //actually use hook (NEED to call mutation.mutate in order to execute call)
         axios.defaults.withCredentials = true;
-        axios
-            .patch("http://localhost:3004/auth/login", loginData, {withCredentials: true})
-            .then((response) =>{
-                setResponse("Successful Post!");
+        mutation.mutate(loginData, {
+            onSuccess: (data) => {
+                setResponse("Successful login!");
                 setUsername("");
                 setPass("");
                 setLoggedIn(true);
-                router.push('./example/protectedroute');
-                localStorage.setItem('username', username);
-            })
-            .catch((error) => {
-                setResponse("Unsuccessful Post :(!");
-            });
-        
+                localStorage.setItem("username", username);
+                router.push("/example/protectedroute");
+            },
+            onError: (error: any) => {
+                setResponse("Unsuccessful login :(");
+            },
+        });
     }
     if(loggedIn){
         return <p className="font-bold text-gray-800 italic">Successful login!</p>

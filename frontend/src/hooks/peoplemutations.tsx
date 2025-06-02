@@ -12,7 +12,7 @@ import { forgotForm1 } from '@/api/peoples';
 import { PassData } from '@/api/peoples';
 import { changePass } from '@/api/peoples';
 
-function useSignUp(){
+export function useSignUp(){
     const mutation = useMutation({
         mutationFn: (data : NewPerson) => signUp(data)
         , onSuccess: (response) => {
@@ -24,19 +24,14 @@ function useSignUp(){
     });
 }
 
-function useLogIn(){
+export function useLogIn(){
     const mutation = useMutation({
         mutationFn: (data: LoginData) => logIn(data)
-        , onSuccess: (response) => {
-            return response
-        },
-        onError: (response) => {
-
-        }
     })
+    return mutation;
 }
 
-function useDeletePerson(){
+export function useDeletePerson(){
     const mutation = useMutation({
         mutationFn: (data: DeleteData) => deletePerson(data)
         , onSuccess: (response) =>{
@@ -46,9 +41,10 @@ function useDeletePerson(){
 
         }
     })
+    return mutation;
 }
 
-function useChangeFirstName(){
+export function useChangeFirstName(){
     const mutation = useMutation({
         mutationFn: (data: NewName) => changeFirstName(data)
         , onSuccess: (response) =>{
@@ -58,9 +54,10 @@ function useChangeFirstName(){
 
         }
     })
+    return mutation;
 }
 
-function useForgotForm1(){
+export function useForgotForm1(){
     const mutation = useMutation({
         mutationFn: (data : ForgotData) => forgotForm1(data)
         , onSuccess: (response) => {
@@ -70,9 +67,10 @@ function useForgotForm1(){
 
         }
     })
+    return mutation;
 }
 
-function useChangePass(){
+export function useChangePass(){
     const mutation = useMutation({
         mutationFn: (data: PassData) => changePass(data)
         , onSuccess: (response) =>{
@@ -82,4 +80,5 @@ function useChangePass(){
 
         }
     }) 
+    return mutation;
 }
