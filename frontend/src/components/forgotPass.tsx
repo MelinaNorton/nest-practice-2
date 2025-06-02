@@ -11,6 +11,31 @@ const ForgotPass = () => {
     const [response, setResponse] = useState("");
     const [validEmail, setValidEmail] = useState(false);
 
+    const validateData = (e: React.FormEvent<HTMLFormElement>) =>{
+        e.preventDefault();
+        let isValid = true;
+
+        if(username.length > 20){
+            setResponse("Enter a valid username (< 20 characters)");
+            isValid = false;
+        }
+        if(username.length == 0){
+             setResponse("Enter a username");
+             isValid = false;
+        }
+        if(email.length > 20){
+            setResponse("Enter a valid email (< 20 characters)");
+            isValid = false;
+        }
+        if(email.length == 0){
+             setResponse("Enter an email");
+             isValid = false;
+        }
+        
+        if(isValid){
+            handleForgottenPass(e);
+        }
+    }
     const handleForgottenPass = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -24,7 +49,6 @@ const ForgotPass = () => {
             .then(response=> {
                 //setUsername("");
                 setEmail("");
-                console.log("valid email!");
                 if(response.data.email == email){
                     setValidEmail(true)
                 }
@@ -46,26 +70,28 @@ const ForgotPass = () => {
         return <NewPassForm username={username} setUsername={setUsername}/>
     }
     return (
-        <div className="form-card">
-            <form onSubmit ={handleForgottenPass}>
+        <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
+            <form onSubmit ={validateData}>
                 <input 
                 id="Loginusername"
-                className = "form-input"
                 type="text"
                 placeholder="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                className="font-bold text-gray-400"
                 />
                 <input 
                 id="Loginemail"
-                className = "form-input"
                 type="text"
                 placeholder="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="font-bold text-gray-400"
                 />
-                <button type="submit" className="submitbtn">Submit</button>
-                <p>{response}</p>
+                <br/>
+                <br/>
+                <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50">Submit</button>
+                <p className="font-bold text-gray-800 italic">{response}</p>
             </form>
         </div>
     );

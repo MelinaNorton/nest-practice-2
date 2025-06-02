@@ -12,9 +12,9 @@ const PatchName = () => {
 
         
          axios
-            .patch(`http://localhost:3004/people/${encodeURIComponent(oldname)}`, {newFirstName:firstname},  {withCredentials: true})
+            .patch(`http://localhost:3004/people/${oldname}`, {newFirstName:firstname},  {withCredentials: true})
             .then((response) =>{
-        setResponse("Successful Patch!");
+                setResponse("Successful Patch!");
                 setNewName("");
             })
             .catch((error) => {
@@ -23,27 +23,29 @@ const PatchName = () => {
     }
 
     return(
-        <div className="form-card">
+        <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
             <form onSubmit ={handlePatch}>
                 <input 
                 id="oldname"
-                className = "form-input"
                 type="text"
                 placeholder="oldname"
                 value={oldname}
                 onChange={(e) => setOldName(e.target.value)}
+                className="font-bold text-gray-400"
                 />
                 <input 
                 id="newfirstname"
-                className = "form-input"
                 type="text"
                 placeholder="firstname"
                 value={firstname}
                 onChange={(e) => setNewName(e.target.value)}
+                className="font-bold text-gray-400"
                 />
-                <button type="submit" className="submitbtn">Submit</button>
+                <br/>
+                <br/>
+                <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50">Submit</button>
             </form>
-            <p>{responseMessage}</p>
+            <p className="font-bold text-gray-800 italic">{responseMessage}</p>
         </div>
     );
 }

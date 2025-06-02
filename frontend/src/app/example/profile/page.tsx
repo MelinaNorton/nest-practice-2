@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import Profile from '../components/displayLoggedInUser';
+import Profile from '../../../components/displayLoggedInUser';
 
 export default function Page() {
     return (

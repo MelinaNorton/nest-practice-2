@@ -16,11 +16,9 @@ const Profile = () => {
     useEffect(() =>{
         const retrieved = localStorage.getItem('username');
         if(retrieved){
-            console.log("retrieved username!");
             setLoggedInUser(retrieved);
         }
         else{
-            console.log("problems getting username...");
         }
     })
 

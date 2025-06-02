@@ -52,17 +52,16 @@ export class AuthService {
             throw new UnauthorizedException('Invalid Password');
         }
 
-        const token = this.jwtService.sign({ id: exists.id, username: exists.username}, {
+        const token = this.jwtService.sign({ id: exists.id, username: exists.username }, {
             secret: this.configService.get('JWT_SECRET'),
             expiresIn: this.configService.get('JWT_EXPIRES'),
         })
-        
+
         return token;
     }
 
     async resetPass({ username, password }: UpdatePersonDto): Promise<People> {
         if (!username || !password) {
-            console.log({username, password});
             throw new NotFoundException("Missing Required Fields");
         }
         const filter = { username: username };

@@ -1,5 +1,5 @@
 import React from 'react';
-import ForgotPass from '../components/forgotPass';
+import ForgotPass from '../../../components/forgotPass';
 
 export default function Page() {
     return (
