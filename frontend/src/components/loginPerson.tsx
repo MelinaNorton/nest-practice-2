@@ -23,6 +23,7 @@ const LoginPerson = () => {
     const mutation = useLogIn();
 
     const validateData = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if(password.length > 20){
             setResponse("Enter a password");
         }
@@ -59,9 +60,7 @@ const LoginPerson = () => {
             },
         });
     }
-    if(loggedIn){
-        return <p className="font-bold text-gray-800 italic">Successful login!</p>
-    }
+    
     return (
         <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
             <form onSubmit ={validateData}>
