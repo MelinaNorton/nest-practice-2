@@ -62,12 +62,6 @@ export function useForgotForm1(){
 export function useChangePass(){
     const mutation = useMutation({
         mutationFn: (data: PassData) => changePass(data)
-        , onSuccess: (response) =>{
-            return response
-        },
-        onError: (response) => {
-
-        }
     }) 
     return mutation;
 }

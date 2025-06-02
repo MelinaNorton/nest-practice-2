@@ -41,32 +41,14 @@ const ForgotPass = () => {
     const handleForgottenPass = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        //DATA FOR MUTATION
         const validateData = {
             username,
             email
         }
 
-     /*axios
-        .get(`http://localhost:3004/people/${validateData.username}`)
-            .then(response=> {
-                //setUsername("");
-                setEmail("");
-                if(response.data.email == email){
-                    setValidEmail(true)
-                }
-                else{
-                    setResponse("no email matches user :(");
-                    setUsername("");
-                    setEmail("");
-                }
-                return;
-            })
-            .catch((error) =>{
-                setResponse("error matching user :(");
-                setUsername("");
-                setEmail("");
-                return;
-            })*/
+
+        //ACTUAL MUTATION CALL
          mutation.mutate(validateData, {
             onSuccess: (match) => {
                 //setUsername("");

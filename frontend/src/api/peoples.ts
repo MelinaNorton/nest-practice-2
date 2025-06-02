@@ -32,7 +32,6 @@ export interface ForgotData {
 
 export interface PassData {
     username : string,
-    oldpass : string,
     newpass : string
 }
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 type username = { username: string; setUsername: (u: string) => void };
 import { useRouter } from 'next/navigation'
+import { useChangePass } from "@/hooks/peoplemutations";
 
 const SetPass = ({username, setUsername}:username) => {
     const [pass, setNewPass] = useState("");
@@ -10,7 +11,7 @@ const SetPass = ({username, setUsername}:username) => {
     const [success, setSuccess] = useState(false);
     const [response, setResponse] = useState("");
     const router = useRouter();
-
+    const mutation = useChangePass();
     setUsername(username);
 
     const executeReset = (e: React.FormEvent<HTMLFormElement>) =>{
@@ -18,8 +19,10 @@ const SetPass = ({username, setUsername}:username) => {
         if(pass == checkpass){
             const resetData = {
                 username,
-                password : pass
+                newpass : pass
             }
+
+            /*
             axios
                 .patch("http://localhost:3004/auth/reset/pass", resetData)
                 .then( response =>{
@@ -30,7 +33,18 @@ const SetPass = ({username, setUsername}:username) => {
                 })
                 .catch(error =>{
                      setResponse("no email matches user :(");
-                })
+                })*/
+            mutation.mutate(resetData, {
+                onSuccess: (data) => {
+                    setNewPass("");
+                    setCheckPass("");
+                    setSuccess(true);
+                    router.push('./');
+                },
+                onError: (error: any) => {
+                    setResponse("no email matches user :(");
+                }
+            })   
         }
     }
     if(success){
