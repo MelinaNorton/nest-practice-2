@@ -2,6 +2,7 @@
 import React, { useState }  from "react";
 import axios from "axios";
 import NewPassForm from "./newPassForm";
+import { useForgotForm1 } from "@/hooks/peoplemutations";
 
 const ForgotPass = () => {
     const [username, setUsername] = useState("");
@@ -10,6 +11,7 @@ const ForgotPass = () => {
     const [email, setEmail] = useState("");
     const [response, setResponse] = useState("");
     const [validEmail, setValidEmail] = useState(false);
+    const mutation = useForgotForm1();
 
     const validateData = (e: React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
@@ -44,7 +46,7 @@ const ForgotPass = () => {
             email
         }
 
-     axios
+     /*axios
         .get(`http://localhost:3004/people/${validateData.username}`)
             .then(response=> {
                 //setUsername("");
@@ -64,7 +66,22 @@ const ForgotPass = () => {
                 setUsername("");
                 setEmail("");
                 return;
-            })
+            })*/
+         mutation.mutate(validateData, {
+            onSuccess: (match) => {
+                //setUsername("");
+                setEmail("");
+                if(match){
+                    setValidEmail(true)
+                }
+                else{
+                    setResponse("no email matches user :(");
+                    setUsername("");
+                    setEmail("");
+                }
+                return;
+            }
+         })  
     }
     if(validEmail){
         return <NewPassForm username={username} setUsername={setUsername}/>

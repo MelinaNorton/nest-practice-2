@@ -55,12 +55,6 @@ export function useChangeFirstName(){
 export function useForgotForm1(){
     const mutation = useMutation({
         mutationFn: (data : ForgotData) => forgotForm1(data)
-        , onSuccess: (response) => {
-            return response;
-        },
-        onError: (response) => {
-
-        }
     })
     return mutation;
 }

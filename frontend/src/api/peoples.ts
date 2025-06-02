@@ -96,22 +96,20 @@ export async function displayLoggedInUser(name : string){
             })
 }
 //forgotform1
-export async function forgotForm1(data : ForgotData){
+export async function forgotForm1(data : ForgotData): Promise<boolean>{
+    let match = true;
          axios
         .get(`http://localhost:3004/people/${data.username}`)
             .then(response=> {
                 //setUsername("");
-                if(response.data.email == data.email){
-                    return true;
+                if(response.data.email != data.email){
+                    match = false;
                 }
-                else{
-                    return false;
-                }
-                return;
             })
             .catch((error) =>{
                 console.log("Problem matching email to username");
             })
+            return match
 }
 //patch password
 export async function changePass(data : PassData){
