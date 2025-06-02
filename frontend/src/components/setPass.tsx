@@ -22,7 +22,7 @@ const SetPass = ({username, setUsername}:username) => {
             }
             axios
                 .patch("http://localhost:3004/auth/reset/pass", resetData)
-                .then( respone =>{
+                .then( response =>{
                     setNewPass("");
                     setCheckPass("");
                     setSuccess(true);
