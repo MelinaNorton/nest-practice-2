@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { error } from "console";
-import { useSignUp } from "@/hooks/peoplemutations";
+import { useSignUp } from "@/hooks/mutations/peoplemutations";
 
 const AddPerson = () => {
     const [firstname, setFirst] = useState("");

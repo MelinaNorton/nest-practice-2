@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState }  from "react";
 import axios from "axios";
-
+import { useDisplayLoggedInUser } from "@/hooks/queries/peoplequeries";
 
 const Profile = () => {
     const [firstname, setFirstName] = useState("");
@@ -12,6 +12,19 @@ const Profile = () => {
     const [isCool, setIsCool] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [loggedInUsername, setLoggedInUser] = useState("");
+    const { data, isLoading, isError } = useDisplayLoggedInUser(loggedInUsername);
+    useEffect(() => {
+                if (data) {
+                    setFirstName(data.firstname);
+                    setLastName(data.lastname);
+                    setUserName(data.username);
+                    setAge(data.age);
+                    setEmail(data.email);
+                    setIsCool(data.isCool);
+    
+                    setLoaded(true);
+                }
+    }, [data]);
 
     useEffect(() =>{
         const retrieved = localStorage.getItem('username');
@@ -22,22 +35,6 @@ const Profile = () => {
         }
     })
 
-    useEffect(()=>{
-        axios
-            .get(`http://localhost:3004/people/${loggedInUsername}`)
-            .then((response)=>{
-                setFirstName(response.data.firstname);
-                setLastName(response.data.lastname);
-                setUserName(response.data.username);
-                setAge(response.data.age);
-                setIsCool(response.data.isCool);
-                setEmail(response.data.email);
-                setLoaded(true);
-            })
-            .catch((error)=>{
-
-            })
-        })
         return (
             loaded ?
                 <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 font-sans">

@@ -3,7 +3,7 @@ import React, { useEffect, useState }  from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation'
 import { QueryClient, useMutation } from "@tanstack/react-query";
-import { useLogIn } from "@/hooks/peoplemutations";
+import { useLogIn } from "@/hooks/mutations/peoplemutations";
 import { useQueryClient } from "@tanstack/react-query";
 
 const LoginPerson = () => {

@@ -2,7 +2,7 @@
 import React, { useState }  from "react";
 import axios from "axios";
 import NewPassForm from "./newPassForm";
-import { useForgotForm1 } from "@/hooks/peoplemutations";
+import { useForgotForm1 } from "@/hooks/mutations/peoplemutations";
 
 const ForgotPass = () => {
     const [username, setUsername] = useState("");

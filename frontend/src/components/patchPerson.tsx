@@ -1,7 +1,7 @@
 'use client'
 import React, { useState }  from "react";
 import axios from "axios";
-import { useChangeFirstName } from "@/hooks/peoplemutations";
+import { useChangeFirstName } from "@/hooks/mutations/peoplemutations";
 
 const PatchName = () => {
     const [oldname, setOldName] = useState("");

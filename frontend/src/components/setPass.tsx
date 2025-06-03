@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 type username = { username: string; setUsername: (u: string) => void };
 import { useRouter } from 'next/navigation'
-import { useChangePass } from "@/hooks/peoplemutations";
+import { useChangePass } from "@/hooks/mutations/peoplemutations";
 
 const SetPass = ({username, setUsername}:username) => {
     const [pass, setNewPass] = useState("");

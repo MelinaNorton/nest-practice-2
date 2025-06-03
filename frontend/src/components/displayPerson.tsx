@@ -1,10 +1,12 @@
 'use client'
 import React, { useState }  from "react";
 import axios from "axios";
-
+import { useDisplayPerson } from "@/hooks/queries/peoplequeries";
+import { useEffect } from "react";
 const DisplayPerson = () => {
     
     const [name, setName] = useState("");
+    const [tempname, setTempName] = useState("");
     const [response, setResponse] = useState("");
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
@@ -14,45 +16,38 @@ const DisplayPerson = () => {
     const [isCool, setIsCool] = useState(false);
     const [searching, setSearching] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const { data, isLoading, isError } = useDisplayPerson(name);
+
+    //in order to trigger the hook only when the "name" variable is defined/set to tempname, useEffect is necessary to wait
+     useEffect(() => {
+            if (data) {
+                setFirstName(data.firstname);
+                setLastName(data.lastname);
+                setUserName(data.username);
+                setAge(data.age);
+                setEmail(data.email);
+                setIsCool(data.isCool);
+
+                setLoaded(true);
+                setResponse("Successful Get!");
+            }
+    }, [data]);
 
     const validateUserData = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSearching(true);
 
-        if(!name) {
+        if(!tempname) {
             setResponse("Complete Name Field");
         }
-        else if(name.length > 20){
+        else if(tempname.length > 20){
             setResponse("Enter a valid name (<20 characters)");
         }
         else{
-            handleDisplay(e);
+            setName(tempname);
         }
     }
 
-    const handleDisplay = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        axios
-            .get(`http://localhost:3004/people/${name}`)
-            .then((response) => {
-                setLoaded(true);
-                setResponse("Successful Get!");
-                setFirstName(response.data.firstname);
-                setLastName(response.data.lastname);
-                setUserName(response.data.username);
-                setAge(response.data.age);
-                setIsCool(response.data.isCool);
-                setEmail(response.data.email);
-            })
-            .catch((error)=>{
-                setResponse("Unsuccessful Get :(!");
-                setLoaded(false);
-            })
-            .finally(()=>{
-                setSearching(false);
-                setName("");
-            });
-    }
     return (
         <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
             <form onSubmit={validateUserData}>
@@ -60,8 +55,8 @@ const DisplayPerson = () => {
                     id="findname"
                     type="text"
                     placeholder="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={tempname}
+                    onChange={(e) => setTempName(e.target.value)}
                     className="font-bold text-gray-400"
                 >
                 </input>

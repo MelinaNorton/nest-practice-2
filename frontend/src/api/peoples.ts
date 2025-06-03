@@ -76,16 +76,29 @@ export async function changeFirstName(data : NewName){
 }
 
 //profile
-export async function displayLoggedInUser(name : string){
-    const response = await axios
-            .get(`http://localhost:3004/people/${name}`)
-            .then((response)=>{
-                return response.data;
-            })
-            .catch((error)=>{
-                console.log("Problem displaying profile");
-            })
+export async function displayLoggedInUser(name : string): Promise<NewPerson>{
+    try{const response = await axios
+        .get<NewPerson>(`http://localhost:3004/people/${name}`)
+        return response.data
+    }
+    catch (error) {
+        console.error("Problem displaying profile:", error);
+        throw error;
+    }
 }
+
+//get person
+export async function displayPerson(name : string): Promise<NewPerson>{
+    try{const response = await axios
+        .get<NewPerson>(`http://localhost:3004/people/${name}`)
+        return response.data;
+    }
+    catch (error) {
+        console.error("Problem displaying profile:", error);
+        throw error;
+    }
+}
+
 //forgotform1
 export async function forgotForm1(data : ForgotData): Promise<boolean>{
     let match = true;
