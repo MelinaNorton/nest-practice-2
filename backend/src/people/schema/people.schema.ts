@@ -8,4 +8,5 @@ export const PeopleSchema = new Schema({
     isCool: { type: Boolean, required: true },
     username : { type : String, required : true},
     password: { type : String, required : true},
+    image : {type : String, required : false}
 });

@@ -7,4 +7,5 @@ export interface People {
     email: string,
     isCool: boolean,
     id: string
+    image?: string;
 }

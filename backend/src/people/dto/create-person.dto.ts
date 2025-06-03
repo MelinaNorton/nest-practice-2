@@ -27,4 +27,7 @@ export class CreatePersonDto {
 
     @IsString()
     password : string;
+
+    @IsString()
+    image?: string;
 }

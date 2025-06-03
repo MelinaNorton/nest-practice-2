@@ -166,4 +166,15 @@ export class PeopleService {
     }
     return found;
   }
+  async upload(filter : PeopleFilter, updatePersonDto : UpdatePersonDto, imgFile:string): Promise<People> {
+    const updated = {
+      ...updatePersonDto,
+      image : imgFile,
+    }
+    const changed = await this.peopleModel.findOneAndUpdate(filter, updated);
+    if (!changed){
+      throw new NotFoundException("Image did NOT upload :(");
+    }
+    return changed
+  }
 }

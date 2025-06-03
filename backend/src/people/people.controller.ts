@@ -1,11 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards, Res, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards, Res, Req, UseInterceptors, BadRequestException, UploadedFile } from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { QueryPeopleDto } from './dto/query-people.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { PeopleService } from './people.service';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-
-
+import { FileInterceptor } from "@nestjs/platform-express";
+import { diskStorage } from "multer";
+import { MulterModule } from '@nestjs/platform-express';
 @Controller('people')
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) { }
@@ -14,6 +15,32 @@ export class PeopleController {
   @Post()
   create(@Body() createPersonDto: CreatePersonDto) {
     return this.peopleService.create(createPersonDto);
+  }
+
+  //upload image files for added image field in the schema
+  @Patch(':username')
+  @UseInterceptors(
+    FileInterceptor("file", {
+      storage: diskStorage({
+        destination: "./uploads",
+        filename: (_req, file, cb) => {
+          const suffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+          const extension = file.originalname.split(".").pop();
+          cb(null,`${_req.params.username}-${suffix}.${extension}`)
+        },
+      }),
+      fileFilter: (_req, file, cb) => {
+        if(!file.mimetype.startsWith("image/")){
+          return cb(new BadRequestException("Wrong File Type"), false);
+        }
+        cb(null, true);
+      }
+    })
+  )
+  upload(@Param('username') usernameParam: string, @UploadedFile() file: Express.Multer.File, @Body() updatePersonDto:UpdatePersonDto) {
+    const filter = { username: usernameParam };
+    const imgFile = `/uploads/${file.filename}`;
+    return this.peopleService.upload(filter, updatePersonDto, imgFile);
   }
 
   //@UseGuards(JwtAuthGuard)

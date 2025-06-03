@@ -3,9 +3,11 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import * as cookieParser from 'cookie-parser';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from "path";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors({
     origin: 'http://localhost:3000',//port that we use in frontend
     credentials: true,
@@ -17,6 +19,7 @@ async function bootstrap() {
     transform: true,
   }));
   app.use(cookieParser());
+  app.useStaticAssets(join(__dirname, "..", 'uploads'))
   await app.listen(process.env.PORT ?? 3004);//port that we run backend
 }
 bootstrap();
