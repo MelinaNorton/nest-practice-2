@@ -177,4 +177,9 @@ export class PeopleService {
     }
     return changed
   }
+  async getImage(filter:PeopleFilter): Promise<string | null | undefined>{
+    const user = await this.peopleModel.findOne(filter);
+    const imgFile = user?.image;
+    return imgFile;
+  }
 }
