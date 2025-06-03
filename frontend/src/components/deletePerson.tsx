@@ -1,12 +1,14 @@
 'use client'
 import React, { useState }  from "react";
 import axios from "axios";
+import { useDeletePerson } from "@/hooks/peoplemutations";
 
 const DeletePerson = () => {
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
     const [username, setUserName] = useState("");
     const [response, setResponse] = useState("");
+    const mutation = useDeletePerson();
 
     const validateUserData = (e: React.FormEvent<HTMLFormElement>) => {
         if(!firstname || !lastname || !username){
@@ -37,17 +39,17 @@ const DeletePerson = () => {
     const handleDelete = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        axios
-            .delete(`http://localhost:3004/people/${firstname}`)
-            .then((response)=>{
+        mutation.mutate({firstname : firstname},{
+            onSuccess: (data) => {
                 setResponse("Successful Delete!");
                 setFirstName("");
                 setLastName("");
                 setUserName("");
-            })
-            .catch((error)=>{
+            },
+            onError: (data) => {
                 setResponse("Unsuccessful Delete :(");
-            });
+            }
+        })    
     }
 
     return(

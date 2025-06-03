@@ -21,8 +21,6 @@ export interface LoginData {
 
 export interface DeleteData {
     firstname : string,
-    lastname : string,
-    username : string
 }
 
 export interface ForgotData {
