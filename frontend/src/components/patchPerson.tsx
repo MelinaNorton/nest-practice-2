@@ -1,25 +1,31 @@
 'use client'
 import React, { useState }  from "react";
 import axios from "axios";
+import { useChangeFirstName } from "@/hooks/peoplemutations";
 
 const PatchName = () => {
     const [oldname, setOldName] = useState("");
     const [firstname, setNewName] = useState("");
     const [responseMessage, setResponse] = useState("");
+    const mutation = useChangeFirstName();
 
     const handlePatch= (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        const NewName = {
+            newname : firstname,
+            firstname : oldname,
+        }
         
-         axios
-            .patch(`http://localhost:3004/people/${oldname}`, {newFirstName:firstname},  {withCredentials: true})
-            .then((response) =>{
+        mutation.mutate(NewName,{
+            onSuccess: (data) =>{
                 setResponse("Successful Patch!");
                 setNewName("");
-            })
-            .catch((error) => {
+            },
+            onError: (data) =>{
                 setResponse("Unsuccessful Patch :(!");
-            });
+            }
+        })    
     }
 
     return(

@@ -13,7 +13,6 @@ const LoginPerson = () => {
     const [response, setResponse] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
     const router = useRouter();
-    const queryClient = useQueryClient();
     
     //DATA TO BE SUBMITTED
      const loginData = {
@@ -61,8 +60,6 @@ const LoginPerson = () => {
                 setResponse("Unsuccessful login :(");
             },
         });
-        //queryClient.invalidateQueries({ queryKey: ["username", username] });
-        //queryClient.invalidateQueries({ queryKey: ["password", password] });
     }
     
     return (
