@@ -22,18 +22,6 @@ const SetPass = ({username, setUsername}:username) => {
                 newpass : pass
             }
 
-            /*
-            axios
-                .patch("http://localhost:3004/auth/reset/pass", resetData)
-                .then( response =>{
-                    setNewPass("");
-                    setCheckPass("");
-                    setSuccess(true);
-                    router.push('./');
-                })
-                .catch(error =>{
-                     setResponse("no email matches user :(");
-                })*/
             mutation.mutate(resetData, {
                 onSuccess: (data) => {
                     setNewPass("");

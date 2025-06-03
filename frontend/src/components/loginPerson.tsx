@@ -2,8 +2,9 @@
 import React, { useEffect, useState }  from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation'
-import { useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import { useLogIn } from "@/hooks/peoplemutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 const LoginPerson = () => {
     const [loggedInUser, setLoggedInUser] = useState("");
@@ -12,7 +13,8 @@ const LoginPerson = () => {
     const [response, setResponse] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
     const router = useRouter();
-
+    const queryClient = useQueryClient();
+    
     //DATA TO BE SUBMITTED
      const loginData = {
             username,
@@ -59,6 +61,8 @@ const LoginPerson = () => {
                 setResponse("Unsuccessful login :(");
             },
         });
+        //queryClient.invalidateQueries({ queryKey: ["username", username] });
+        //queryClient.invalidateQueries({ queryKey: ["password", password] });
     }
     
     return (

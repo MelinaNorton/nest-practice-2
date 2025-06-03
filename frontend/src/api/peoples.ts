@@ -37,31 +37,25 @@ export interface PassData {
 
 //signup
 export async function signUp(data : NewPerson){
-    axios
+    const response = await axios
         .post("http://localhost:3004/auth/signup", data, { withCredentials: true })
             .then((response) => {
                 return response.data;
             })
-            .catch((error) => {
-                console.log("Problem posting new person");
-            });
 }
 
 //login
 export async function logIn(data : LoginData){
-    axios
+    const response = await axios
             .patch("http://localhost:3004/auth/login", data, {withCredentials: true})
             .then((response) =>{
                 return response.data;
             })
-            .catch((error) => {
-                console.log("Problem logging in");
-            });
 }
 
 //delete
 export async function deletePerson(data : DeleteData){
-    axios
+    const response = await axios
             .delete(`http://localhost:3004/people/${data.firstname}`)
             .then((response)=>{
                 return response.data;
@@ -73,7 +67,7 @@ export async function deletePerson(data : DeleteData){
 
 //patch
 export async function changeFirstName(data : NewName){
-    axios
+    const response = await axios
             .patch(`http://localhost:3004/people/${data.firstname}`, {newFirstName: data.newname},  {withCredentials: true})
             .then((response) =>{
                 return response.data;
@@ -85,7 +79,7 @@ export async function changeFirstName(data : NewName){
 
 //profile
 export async function displayLoggedInUser(name : string){
-    axios
+    const response = await axios
             .get(`http://localhost:3004/people/${name}`)
             .then((response)=>{
                 return response.data;
@@ -97,7 +91,7 @@ export async function displayLoggedInUser(name : string){
 //forgotform1
 export async function forgotForm1(data : ForgotData): Promise<boolean>{
     let match = true;
-         axios
+         const response = await axios
         .get(`http://localhost:3004/people/${data.username}`)
             .then(response=> {
                 //setUsername("");
@@ -112,7 +106,7 @@ export async function forgotForm1(data : ForgotData): Promise<boolean>{
 }
 //patch password
 export async function changePass(data : PassData){
-    axios
+    const response = await axios
         .patch("http://localhost:3004/auth/reset/pass", data)
         .then( response =>{
             return response.data;
