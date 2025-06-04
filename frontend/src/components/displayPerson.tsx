@@ -1,8 +1,8 @@
 'use client'
 import React, { useState }  from "react";
-import axios from "axios";
 import { useDisplayPerson } from "@/hooks/queries/peoplequeries";
 import { useEffect } from "react";
+import ProfilePhoto from "./profilePhoto";
 
 const DisplayPerson = () => {
     const [name, setName] = useState("");
@@ -74,6 +74,9 @@ const DisplayPerson = () => {
                     <li className="font-bold text-gray-400">{email}</li>
                     <li className="font-bold text-gray-400">{age} </li>
                     <li className="font-bold text-gray-400">{isCool ? <p>Is Cool</p> : <p>Is NOT Cool</p>}  </li>
+                    <li>
+                        <ProfilePhoto username = {username}/>
+                    </li>
                 </ul>
             </div>
             }
