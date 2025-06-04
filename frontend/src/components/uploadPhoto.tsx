@@ -1,19 +1,15 @@
 'use client'
 import React, { useState } from "react";
-import { useEffect } from "react";
-import { ChangeEventHandler } from "react";
 import { useUploadPhoto } from "@/hooks/mutations/peoplemutations";
-import { PhotoData } from "@/api/peoples";
 
 interface photoProps {
     username :string;
 }
+
 const UploadPhoto: React.FC<photoProps> = ({ username })=> {
     const [file, setSelectedFile] = useState<File | null>(null);
     const [response, setResponse] = useState("");
     const mutation = useUploadPhoto();
-
-    
 
     const getFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -25,6 +21,7 @@ const UploadPhoto: React.FC<photoProps> = ({ username })=> {
             setResponse("Please select an image file to upload");
         }
     }
+    
     const handlePatch = () =>{
         if(file){
             const data = {

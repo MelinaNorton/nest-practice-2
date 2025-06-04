@@ -1,7 +1,5 @@
 'use client'
 import React, { useState } from "react";
-import axios from "axios";
-import { error } from "console";
 import { useSignUp } from "@/hooks/mutations/peoplemutations";
 
 const AddPerson = () => {
@@ -15,7 +13,7 @@ const AddPerson = () => {
     const [responseMessage, setResponse] = useState("");
 
     //HOOK INIT AN CALL
-        const mutation = useSignUp();
+    const mutation = useSignUp();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,7 +29,6 @@ const AddPerson = () => {
             password
         }
 
-        
         mutation.mutate(newPerson, {
             onSuccess: (data) => {
                 setResponse("Created New User!");
@@ -50,11 +47,6 @@ const AddPerson = () => {
 
     };
 
-    //when writing the form for submitting a new person to the DB, the "setters" defined
-    //above are called, and each field's states are altered according to the input.
-    //The default for each field's "value=" field is the {~field~} set as the initial
-    //state (something empty or null), and if a change-event is detected the new value
-    //is set
     return (
         <div className="pb-2 pl-4 pr-1 pt-2 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
             <form onSubmit={handleSubmit}>
@@ -123,6 +115,5 @@ const AddPerson = () => {
         </div>
     );
 };
-
 export default AddPerson;
 

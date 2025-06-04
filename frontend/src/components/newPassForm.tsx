@@ -5,7 +5,6 @@ type username = { username: string; setUsername: (u: string) => void };
 
 const NewPassForm = ({username, setUsername}:username) => {
 const [code, setCode] = useState("");
-//temp hardcoded val
 const [sentCode, setSentCode] = useState("1234");
 const [matched, setMatched] = useState(false)
 const [response, setResponse] = useState("");
@@ -22,6 +21,7 @@ const [response, setResponse] = useState("");
             processNewCreds(e);
         }
     }
+
     const processNewCreds = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -35,7 +35,7 @@ const [response, setResponse] = useState("");
     }
     return(
         <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
-            <form onSubmit={processNewCreds}>
+            <form onSubmit={validateData}>
                 <input 
                     id="code"
                     type="text"

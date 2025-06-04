@@ -42,7 +42,6 @@ export function useDeletePerson(){
             return response;
         },
         onError: (response) => {
-
         }
     })
     return mutation;
@@ -55,7 +54,6 @@ export function useChangeFirstName(){
             return response;
         },
         onError: (response) =>{
-
         }
     })
     return mutation;

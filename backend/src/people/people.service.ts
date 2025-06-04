@@ -167,9 +167,11 @@ export class PeopleService {
     return found;
   }
   async upload(filter : PeopleFilter, updatePersonDto : UpdatePersonDto, imgFile:string): Promise<People> {
+    const port = parseInt(process.env.PORT ?? '3004', 10);
+    const url = "http://localhost:" + port + imgFile;
     const updated = {
       ...updatePersonDto,
-      image : imgFile,
+      image : url,
     }
     const changed = await this.peopleModel.findOneAndUpdate(filter, updated);
     if (!changed){

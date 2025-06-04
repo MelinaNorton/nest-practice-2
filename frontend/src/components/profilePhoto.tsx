@@ -8,18 +8,11 @@ interface photoProps {
 }
 const ProfilePhoto: React.FC<photoProps> = ({ username }) => {
     const { data, isLoading, isError } = useGetPhoto(username);
-    const [response, setResponse] = useState("");
     const [imgsrc, setImgSrc] = useState("");
-    const [found, setFound] = useState(true);
     
-    //isLoading ? && found <p>Loading...</p> :
     useEffect(() => {
         if (data) {
-            if (data == "" || isLoading) {
-                setFound(false);
-            }
-            setImgSrc("http://localhost:3004"+data);
-            //setImgSrc(data);
+            setImgSrc(data);
         }
     }, [data])
 

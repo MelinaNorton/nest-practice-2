@@ -28,7 +28,7 @@ export class PeopleController {
       //defines the kind/location the file should be stored in
       storage: diskStorage({
         destination: (req, file, cb) => {
-        const uploadPath = join(process.cwd(), 'uploads');
+          const uploadPath = join(process.cwd(), 'uploads');
         cb(null, uploadPath);
       },
         //dynamicallu creates the filename upon upload (file extension simply popped, but unique suffix for multiple uploads a day generated from the current day + random number)

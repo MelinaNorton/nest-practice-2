@@ -1,13 +1,10 @@
 'use client'
 import React, { useState }  from "react";
-import axios from "axios";
 import NewPassForm from "./newPassForm";
 import { useForgotForm1 } from "@/hooks/mutations/peoplemutations";
 
 const ForgotPass = () => {
     const [username, setUsername] = useState("");
-    const [password, setPass] = useState("");
-    const [checkpass, setCheckPass] = useState("");
     const [email, setEmail] = useState("");
     const [response, setResponse] = useState("");
     const [validEmail, setValidEmail] = useState(false);
@@ -17,23 +14,17 @@ const ForgotPass = () => {
         e.preventDefault();
         let isValid = true;
 
+        if(!username || !email){
+            setResponse("Enter both a username and email");
+        }
         if(username.length > 20){
             setResponse("Enter a valid username (< 20 characters)");
             isValid = false;
-        }
-        if(username.length == 0){
-             setResponse("Enter a username");
-             isValid = false;
         }
         if(email.length > 20){
             setResponse("Enter a valid email (< 20 characters)");
             isValid = false;
         }
-        if(email.length == 0){
-             setResponse("Enter an email");
-             isValid = false;
-        }
-        
         if(isValid){
             handleForgottenPass(e);
         }
@@ -47,11 +38,9 @@ const ForgotPass = () => {
             email
         }
 
-
         //ACTUAL MUTATION CALL
          mutation.mutate(validateData, {
             onSuccess: (match) => {
-                //setUsername("");
                 setEmail("");
                 if(match){
                     setValidEmail(true)
@@ -65,6 +54,7 @@ const ForgotPass = () => {
             }
          })  
     }
+    
     if(validEmail){
         return <NewPassForm username={username} setUsername={setUsername}/>
     }

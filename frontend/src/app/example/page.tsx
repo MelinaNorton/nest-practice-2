@@ -3,7 +3,6 @@ import React from 'react';
 import LoginPerson from "../../components/loginPerson"
 import ForgotBtn from '../../components/forgotPassBtn';
 import AddPerson from '../../components/postPerson';
-import Profile from '../../components/displayLoggedInUser';
 
 export default function Page() {
     return(

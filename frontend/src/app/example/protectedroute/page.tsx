@@ -1,14 +1,10 @@
 'use client'
 import React from 'react';
-import AddPerson from '../../../components/postPerson';
 import PatchName from '../../../components/patchPerson';
 import DeletePerson from '../../../components/deletePerson';
 import DisplayPerson from '../../../components/displayPerson';
-import { useState } from "react";
-import { useEffect } from "react";
 import ProfileBtn from '../../../components/profileBtn';
-import { useRouter } from 'next/router';
-import { NextRouter } from 'next/router';
+
 export default function Page() {
     return (
         <div className = "flex flex-col items-center justify-center p-50 gap-6">

@@ -5,8 +5,10 @@ import { PassportModule } from '@nestjs/passport';
 import * as cookieParser from 'cookie-parser';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from "path";
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
+  dotenv.config(); 
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors({
     origin: 'http://localhost:3000',//port that we use in frontend

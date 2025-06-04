@@ -1,5 +1,4 @@
 "use client";
-import axios from "axios";
 import { useState } from "react";
 type username = { username: string; setUsername: (u: string) => void };
 import { useRouter } from 'next/navigation'
@@ -16,6 +15,7 @@ const SetPass = ({username, setUsername}:username) => {
 
     const executeReset = (e: React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
+
         if(pass == checkpass){
             const resetData = {
                 username,
@@ -35,6 +35,7 @@ const SetPass = ({username, setUsername}:username) => {
             })   
         }
     }
+    
     if(success){
             return <p className="font-bold text-gray-400">Success!</p>
     }

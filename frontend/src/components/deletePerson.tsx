@@ -22,19 +22,11 @@ const DeletePerson = () => {
         else if(username.length > 20){
             setResponse("Enter a valid username (<20 characters)");
         }
-        else if(firstname.length == 0){
-            setResponse("Enter a valid firstname (>0 characters)");
-        }
-        else if(lastname.length == 0){
-            setResponse("Enter a valid lastname (>0 characters)");
-        }
-        else if(username.length == 0){
-            setResponse("Enter a valid username (>0 characters)");
-        }
         else{
             handleDelete(e);
         }
     }
+    
     const handleDelete = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 

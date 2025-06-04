@@ -1,44 +1,36 @@
 'use client'
-import React, { useEffect, useState }  from "react";
+import React, { useState }  from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation'
-import { QueryClient, useMutation } from "@tanstack/react-query";
 import { useLogIn } from "@/hooks/mutations/peoplemutations";
-import { useQueryClient } from "@tanstack/react-query";
 
 const LoginPerson = () => {
-    const [loggedInUser, setLoggedInUser] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPass] = useState("");
     const [response, setResponse] = useState("");
-    const [loggedIn, setLoggedIn] = useState(false);
     const router = useRouter();
-    
+    const mutation = useLogIn();
+
     //DATA TO BE SUBMITTED
      const loginData = {
             username,
             password
         }
 
-    //initialize hook
-    const mutation = useLogIn();
-
     const validateData = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(password.length > 20){
-            setResponse("Enter a password");
+
+        if(!password || !username){
+            setResponse("Enter both a password and username");
         }
-        else if(password.length == 0){
-            setResponse("Enter a valid password (< 20 characters)");
+        else if(password.length > 20){
+            setResponse("Enter a password");
         }
         else if(username.length > 20){
             setResponse("Enter a valid username (< 20 characters)");
         }
-        else if(username.length == 0){
-            setResponse("Enter a username");
-        }
         else{
-            handleLogin(e);
+             handleLogin(e);
         }
     }
     
@@ -52,7 +44,6 @@ const LoginPerson = () => {
                 setResponse("Successful login!");
                 setUsername("");
                 setPass("");
-                setLoggedIn(true);
                 localStorage.setItem("username", username);
                 router.push("/example/protectedroute");
             },
@@ -89,5 +80,4 @@ const LoginPerson = () => {
         </div>
     );
 }
-
 export default LoginPerson;

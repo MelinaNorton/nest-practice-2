@@ -1,6 +1,5 @@
 'use client'
 import React, { useState }  from "react";
-import axios from "axios";
 import { useChangeFirstName } from "@/hooks/mutations/peoplemutations";
 
 const PatchName = () => {
@@ -55,5 +54,4 @@ const PatchName = () => {
         </div>
     );
 }
-
 export default PatchName;

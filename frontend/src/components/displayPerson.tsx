@@ -3,8 +3,8 @@ import React, { useState }  from "react";
 import axios from "axios";
 import { useDisplayPerson } from "@/hooks/queries/peoplequeries";
 import { useEffect } from "react";
+
 const DisplayPerson = () => {
-    
     const [name, setName] = useState("");
     const [tempname, setTempName] = useState("");
     const [response, setResponse] = useState("");

@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useState }  from "react";
-import axios from "axios";
 import { useDisplayLoggedInUser } from "@/hooks/queries/peoplequeries";
 import ProfilePhoto from "./profilePhoto";
 import UploadPhoto from "./uploadPhoto";
@@ -12,7 +11,6 @@ const Profile = () => {
     const [age, setAge] = useState(0);
     const [email, setEmail] = useState("");
     const [isCool, setIsCool] = useState(false);
-    const [loaded, setLoaded] = useState(false);
     const [loggedInUsername, setLoggedInUser] = useState("");
     const { data, isLoading, isError } = useDisplayLoggedInUser(loggedInUsername);
     const [hasMounted, setHasMounted] = useState(false);
@@ -25,8 +23,6 @@ const Profile = () => {
                     setAge(data.age);
                     setEmail(data.email);
                     setIsCool(data.isCool);
-    
-                    setLoaded(true);
                 }
     }, [data]);
 
