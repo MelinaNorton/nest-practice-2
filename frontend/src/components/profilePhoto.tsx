@@ -15,16 +15,17 @@ const ProfilePhoto: React.FC<photoProps> = ({ username }) => {
     //isLoading ? && found <p>Loading...</p> :
     useEffect(() => {
         if (data) {
-            if (data == "") {
+            if (data == "" || isLoading) {
                 setFound(false);
             }
             setImgSrc("http://localhost:3004"+data);
+            //setImgSrc(data);
         }
     }, [data])
 
     return (
         <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
-            {found ? <img src={imgsrc} className="rounded w-24 h-24 object-cover self-center"></img> : <p>No Image found</p>}
+            {imgsrc!="" ? <img src={imgsrc} className="rounded w-24 h-24 object-cover self-center"></img> : <p>No Image found</p>}
         </div>
     );
 }

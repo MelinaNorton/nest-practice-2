@@ -34,6 +34,12 @@ export interface PassData {
     newpass : string
 }
 
+export interface PhotoData{
+    username : string,
+    file : File
+}
+
+
 //signup
 export async function signUp(data : NewPerson){
     const response = await axios
@@ -142,6 +148,20 @@ export async function changePass(data : PassData){
         .catch(error =>{
             console.log("Problem changing password");
         })
+}
+
+//upload photo
+export async function uploadPhoto(photoData : PhotoData){
+    try{
+        const formData = new FormData();
+        formData.append('file', photoData.file)
+        const response = await axios.patch(`http://localhost:3004/people/${photoData.username}`, formData);
+        return response.data;
+    }
+    catch (error){
+        console.error("Problem uploading :(");
+        throw error;
+    }
 }
 
 

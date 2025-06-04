@@ -11,6 +11,8 @@ import { ForgotData } from '@/api/peoples';
 import { forgotForm1 } from '@/api/peoples';
 import { PassData } from '@/api/peoples';
 import { changePass } from '@/api/peoples';
+import { uploadPhoto } from '@/api/peoples';
+import { PhotoData } from '@/api/peoples';
 
 export function useSignUp(){
     const mutation = useMutation({
@@ -23,6 +25,13 @@ export function useLogIn(){
     const mutation = useMutation({
         mutationFn: (data: LoginData) => logIn(data)
     })
+    return mutation;
+}
+
+export function useUploadPhoto(){
+    const mutation = useMutation({
+        mutationFn: (data : PhotoData) => uploadPhoto(data)
+    });
     return mutation;
 }
 

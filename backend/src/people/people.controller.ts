@@ -6,7 +6,6 @@ import { PeopleService } from './people.service';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
-import { MulterModule } from '@nestjs/platform-express';
 import { join } from 'path';
 
 @Controller('people')
