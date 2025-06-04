@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { displayLoggedInUser, displayPerson } from "@/api/peoples";
 import { NewPerson } from "@/api/peoples";
 import { UseQueryResult } from "@tanstack/react-query";
-
+import { getPhoto } from "@/api/peoples";
 //query function declarations are set up differently from mutations; mutations take the data or data-object as a parameter within "mutationFn"; queries
 //however take no parameters within their queryDn call, and instead accept parameters from the query-function itself (here, useDIsplayPerson).
 //moreover, the query declaration requires the specification of a queryKey
@@ -20,4 +20,12 @@ export function useDisplayLoggedInUser(name : string) {
         queryFn: () => displayLoggedInUser(name),
         enabled: Boolean(name),
     })
+}
+
+export function useGetPhoto(username : string){
+  return useQuery<string>({
+    queryKey:["photousername", username],
+    queryFn: () => getPhoto(username),
+    enabled: Boolean(username),
+  })
 }

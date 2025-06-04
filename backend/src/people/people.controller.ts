@@ -7,6 +7,8 @@ import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
 import { MulterModule } from '@nestjs/platform-express';
+import { join } from 'path';
+
 @Controller('people')
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) { }
@@ -26,7 +28,10 @@ export class PeopleController {
     FileInterceptor("file", {
       //defines the kind/location the file should be stored in
       storage: diskStorage({
-        destination: "./uploads",
+        destination: (req, file, cb) => {
+        const uploadPath = join(process.cwd(), 'uploads');
+        cb(null, uploadPath);
+      },
         //dynamicallu creates the filename upon upload (file extension simply popped, but unique suffix for multiple uploads a day generated from the current day + random number)
         filename: (_req, file, cb) => {
           const suffix = Date.now() + "-" + Math.round(Math.random() * 1e9);

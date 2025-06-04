@@ -19,7 +19,10 @@ async function bootstrap() {
     transform: true,
   }));
   app.use(cookieParser());
-  app.useStaticAssets(join(__dirname, "..", 'uploads'))
+  console.log("Serving static from:", join(__dirname, "..", 'uploads'));
+  app.useStaticAssets(join(__dirname, "..", 'uploads'), {
+    prefix: '/uploads/'
+  })
   await app.listen(process.env.PORT ?? 3004);//port that we run backend
 }
 bootstrap();

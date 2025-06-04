@@ -8,6 +8,7 @@ export interface NewPerson {
   age: number;
   email: string;
   isCool: boolean;
+  image?: string;
 }
 
 export interface NewName {
@@ -90,11 +91,27 @@ export async function displayLoggedInUser(name : string): Promise<NewPerson>{
 //get person
 export async function displayPerson(name : string): Promise<NewPerson>{
     try{const response = await axios
-        .get<NewPerson>(`http://localhost:3004/people/${name}`)
+        .get<NewPerson>(`http://localhost:3004/people/${name}`);
         return response.data;
     }
     catch (error) {
         console.error("Problem displaying profile:", error);
+        throw error;
+    }
+}
+
+//get profile photo (if exists)
+export async function getPhoto(username : string): Promise<string>{
+    try{const response = await axios.get<string>(`http://localhost:3004/people/${username}/image`)
+    if(response.data){
+        console.log("image grabbed!");
+        return response.data;
+    }
+    console.log("no image :(");
+    return "";
+    }
+    catch (error) {
+        console.error("Problem displaying profile photo:", error);
         throw error;
     }
 }

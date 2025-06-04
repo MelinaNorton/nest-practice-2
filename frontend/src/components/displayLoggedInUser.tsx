@@ -2,6 +2,7 @@
 import React, { useEffect, useState }  from "react";
 import axios from "axios";
 import { useDisplayLoggedInUser } from "@/hooks/queries/peoplequeries";
+import ProfilePhoto from "./profilePhoto";
 
 const Profile = () => {
     const [firstname, setFirstName] = useState("");
@@ -31,14 +32,13 @@ const Profile = () => {
         if(retrieved){
             setLoggedInUser(retrieved);
         }
-        else{
-        }
-    })
+    },[])
 
         return (
             loaded ?
                 <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 font-sans">
                 <h2 className="text-2xl font-bold text-gray-700 mb-4">User Info</h2>
+                <ProfilePhoto username={loggedInUsername}/>
                 <div className="flex items-center gap-x-4 py-2 border-b last:border-b-0 ">
                     <span className="font-semibold text-gray-600">Username: </span>
                     <span className="text-gray-400">{username}</span>
