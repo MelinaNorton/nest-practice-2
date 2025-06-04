@@ -3,6 +3,9 @@ import React, { useState }  from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation'
 import { useLogIn } from "@/hooks/mutations/peoplemutations";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 const LoginPerson = () => {
     const [username, setUsername] = useState("");
