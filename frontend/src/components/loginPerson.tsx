@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useLogIn } from "@/hooks/mutations/peoplemutations";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { loginSchema } from "@/schemas/loginSchema";
 import { SubmitHandler } from "react-hook-form";
 

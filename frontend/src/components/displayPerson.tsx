@@ -62,7 +62,7 @@ const DisplayPerson = () => {
                 </input>
                 <br/>
                 <br/>
-                {searching ? <p>Loading...</p> : <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50">Submit</button>}
+                {isLoading ? <p>Loading...</p> : <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50">Submit</button>}
                 <p className="font-bold text-gray-800 italic">{response}</p>
             </form>
             {loaded && 
