@@ -17,7 +17,8 @@ export interface NewName {
 }
 
 export interface LoginData {
-    username: string;
+    username: string,
+    password: string
 }
 
 export interface DeleteData {
