@@ -1,14 +1,11 @@
-import { Injectable, NotFoundException, ParseBoolPipe } from '@nestjs/common';
+import { Injectable, NotFoundException} from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { InjectModel } from '@nestjs/mongoose'
 import { People } from './interface/people.interface'
 import { Model } from 'mongoose'
-import { Logger } from '@nestjs/common';
 import { QueryPeopleDto } from './dto/query-people.dto';
-import { hash } from 'bcrypt';
 import * as bcrypt from 'bcryptjs'
-import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
@@ -129,6 +126,7 @@ export class PeopleService {
     }
     return found;
   }
+
   async updateFirstName(filter: PeopleFilter, newFirstName: string, updatePersonDto: UpdatePersonDto,) {
     const updated = {
       ...updatePersonDto,
@@ -154,6 +152,7 @@ export class PeopleService {
     }
     return changed;
   }
+
   async removeByAnyName(name: string): Promise<People> {
     const found = await this.peopleModel.findOneAndDelete({
       $or: [
@@ -166,6 +165,7 @@ export class PeopleService {
     }
     return found;
   }
+
   async upload(filter : PeopleFilter, updatePersonDto : UpdatePersonDto, imgFile:string): Promise<People> {
     const port = parseInt(process.env.PORT ?? '3004', 10);
     const url = "http://localhost:" + port + imgFile;
@@ -179,6 +179,7 @@ export class PeopleService {
     }
     return changed
   }
+  
   async getImage(filter:PeopleFilter): Promise<string | null | undefined>{
     const user = await this.peopleModel.findOne(filter);
     const imgFile = user?.image;

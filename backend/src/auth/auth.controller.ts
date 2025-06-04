@@ -6,7 +6,7 @@ import { Body, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs
 import { Response } from 'express';
 import { Res } from '@nestjs/common';
 import { UpdatePersonDto } from 'src/people/dto/update-person.dto';
-import { JwtAuthGuard } from './jwt.auth.guard';
+
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authservice: AuthService) { }
@@ -16,9 +16,6 @@ export class AuthController {
         return this.authservice.signup(signupDto);
     }
 
-    //in order to utilize the jwt cookies as a secure authentication method, they are stored here into the browser's HttpOnly cookies;
-    //the token is just grabbed from the Response object, and set using the .cookie() method; after this code executes, the frontend will only need to 
-    //call req.cookies.token (but they will be included in every API call)
     @Patch('login')
     async loginUser(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response,) {
         const token = await this.authservice.login(loginDto);
@@ -32,7 +29,6 @@ export class AuthController {
         return { success: true };
     }
 
-    
     @Patch('reset/pass')
     resetPass(@Body() updatePersonDto: UpdatePersonDto) {
         return this.authservice.resetPass(updatePersonDto);
