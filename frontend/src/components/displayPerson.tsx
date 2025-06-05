@@ -3,9 +3,18 @@ import React, { useState }  from "react";
 import { useDisplayPerson } from "@/hooks/queries/peoplequeries";
 import { useEffect } from "react";
 import ProfilePhoto from "./profilePhoto";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "@/schemas/loginSchema";
+import { SubmitHandler } from "react-hook-form";
+import { findNameSchema } from "@/schemas/findNameSchema";
+
+type findNameInputs = {
+    tempname: string
+}
 
 const DisplayPerson = () => {
-    const [name, setName] = useState("");
+const [name, setName] = useState("");
     const [tempname, setTempName] = useState("");
     const [response, setResponse] = useState("");
     const [firstname, setFirstName] = useState("");
@@ -18,6 +27,18 @@ const DisplayPerson = () => {
     const [loaded, setLoaded] = useState(false);
     const { data, isLoading, isError } = useDisplayPerson(name);
 
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: {errors},
+    } = useForm<findNameInputs>({
+        resolver: yupResolver(findNameSchema),
+        defaultValues: {
+            tempname: '',
+        }
+     })
+        
     //in order to trigger the hook only when the "name" variable is defined/set to tempname, useEffect is necessary to wait
      useEffect(() => {
             if (data) {
@@ -28,36 +49,27 @@ const DisplayPerson = () => {
                 setEmail(data.email);
                 setIsCool(data.isCool);
                 setLoaded(true);
+                setResponse("");
             }
             else{
                 setResponse("User not found");
             }
     }, [data]);
 
-    const validateUserData = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const onSubmit: SubmitHandler<findNameInputs> = (data) => {
         setSearching(true);
-
-        if(!tempname) {
-            setResponse("Complete Name Field");
-        }
-        else if(tempname.length > 20){
-            setResponse("Enter a valid name (<20 characters)");
-        }
-        else{
-            setName(tempname);
-        }
+        setName(data.tempname);
+        reset(); 
     }
 
     return (
         <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
-            <form onSubmit={validateUserData}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <input
                     id="findname"
                     type="text"
                     placeholder="name"
-                    value={tempname}
-                    onChange={(e) => setTempName(e.target.value)}
+                    {...register('tempname')}
                     className="font-bold text-gray-400"
                 >
                 </input>
@@ -65,6 +77,7 @@ const DisplayPerson = () => {
                 <br/>
                 {isLoading ? <p>Loading...</p> : <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50">Submit</button>}
                 <p className="font-bold text-gray-800 italic">{response}</p>
+                {errors.tempname && <p className="font-bold text-gray-800 italic">{errors.tempname.message}</p>}
             </form>
             {loaded && 
             <div>

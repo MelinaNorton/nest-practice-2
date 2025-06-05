@@ -21,6 +21,7 @@ const ForgotPass = () => {
     const {
     register,
     handleSubmit,
+    reset,
     formState: {errors},
     } = useForm<forgotInputs>({
         resolver: yupResolver(forgotSchema1),
@@ -39,6 +40,7 @@ const ForgotPass = () => {
                 }
                 else{
                     setResponse("no email matches user :(");
+                    reset();
                 }
                 return;
             }

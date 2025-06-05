@@ -21,6 +21,7 @@ const LoginPerson = () => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<loginInputs>({
         resolver: yupResolver(loginSchema),
@@ -37,9 +38,11 @@ const LoginPerson = () => {
                 setResponse("Successful login!");
                 localStorage.setItem("username", data.username);
                 router.push("/example/protectedroute");
+                reset();
             },
             onError: (error: any) => {
                 setResponse("Unsuccessful login :(");
+                reset();
             },
         });
     }

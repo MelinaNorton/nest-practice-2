@@ -23,6 +23,7 @@ const SetPass = ({username, setUsername}:username) => {
     const {
             register,
             handleSubmit,
+            reset,
             formState: { errors },
         } = useForm<passInputs>({
             resolver: yupResolver(passSchema),
@@ -34,8 +35,6 @@ const SetPass = ({username, setUsername}:username) => {
 
         const onSubmit: SubmitHandler<passInputs> = (data) => {
             if(data.pass == data.checkPass && (username != '')){
-                console.log("USERNAME: ", username);
-                console.log("NEWPASS, ", data.checkPass);
                 mutation.mutate({password:data.pass, username : username}, {
                     onSuccess: (data) => {
                         setSuccess(true);
@@ -43,6 +42,7 @@ const SetPass = ({username, setUsername}:username) => {
                     },
                     onError: (error: any) => {
                         setResponse("no email matches user :(");
+                        reset();
                     }
                 })
             }
