@@ -65,6 +65,7 @@ const LoginPerson = () => {
                     <br/>
                     <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50">Submit</button>
                     {errors.username && <p className="font-bold text-gray-800 italic">{errors.username.message}</p>}
+                    {errors.password && <p className="font-bold text-gray-800 italic">{errors.password.message}</p>}
                     <p className="font-bold text-gray-800 italic">{response}</p>
                 </form>
             </div>
