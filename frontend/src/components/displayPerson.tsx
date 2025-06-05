@@ -27,9 +27,10 @@ const DisplayPerson = () => {
                 setAge(data.age);
                 setEmail(data.email);
                 setIsCool(data.isCool);
-
                 setLoaded(true);
-                setResponse(firstname + "'s data:");
+            }
+            else{
+                setResponse("User not found");
             }
     }, [data]);
 

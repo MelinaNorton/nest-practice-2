@@ -86,7 +86,7 @@ export class PeopleController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':firstname')
+  @Patch(':firstname/rename')
   update(@Param('firstname') firstnameparam: string, @Body('newFirstName') newFirstName: string, @Body() updatePersonDto: UpdatePersonDto, @Res({ passthrough: true }) res: Response, @Req() req: Request) {
     const filter = { firstname: firstnameparam };
     return this.peopleService.updateFirstName(filter, newFirstName, updatePersonDto);

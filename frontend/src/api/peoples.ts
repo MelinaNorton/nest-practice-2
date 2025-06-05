@@ -74,7 +74,7 @@ export async function deletePerson(data : DeleteData){
 //patch
 export async function changeFirstName(data : NewName){
     const response = await axios
-            .patch(`http://localhost:3004/people/${data.firstname}`, {newFirstName: data.newname},  {withCredentials: true})
+            .patch(`http://localhost:3004/people/${data.firstname}/rename`, {newFirstName: data.newname},  {withCredentials: true})
             .then((response) =>{
                 return response.data;
             })
