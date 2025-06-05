@@ -50,6 +50,7 @@ const [name, setName] = useState("");
                 setIsCool(data.isCool);
                 setLoaded(true);
                 setResponse("");
+                reset();
             }
             else{
                 setResponse("User not found");
