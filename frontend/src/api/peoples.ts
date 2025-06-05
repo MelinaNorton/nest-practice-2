@@ -31,8 +31,8 @@ export interface ForgotData {
 }
 
 export interface PassData {
-    username : string,
-    newpass : string
+    password : string,
+    username : string
 }
 
 export interface PhotoData{
@@ -141,6 +141,7 @@ export async function forgotForm1(data : ForgotData): Promise<boolean>{
 }
 //patch password
 export async function changePass(data : PassData){
+    console.log(data.username);
     const response = await axios
         .patch("http://localhost:3004/auth/reset/pass", data)
         .then( response =>{
