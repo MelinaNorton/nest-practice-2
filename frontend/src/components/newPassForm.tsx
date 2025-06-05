@@ -34,18 +34,17 @@ const [response, setResponse] = useState("");
         return <SetPass username={username} setUsername={setUsername}/>
     }
     return(
-        <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow shadow-gray-600 font-sans">
-            <form onSubmit={validateData}>
+        <div className="pt-2 pb-2 pl-4 pr-1 rounded-md justify-self-center max-w-md flex-row shadow-sm shadow-gray-500 font-sans p-6">
+            <form onSubmit={validateData} className= "flex flex-col gap-4 p-6">
+                <label htmlFor="code" className="font-bold text-gray-600 w-24">Code</label>
                 <input 
                     id="code"
                     type="text"
-                    placeholder="code"
+                    placeholder="enter your code"
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
-                    className="font-bold text-gray-400"
+                    className="font-bold text-gray-400 border-2 border-gray-200 rounded-md text-center flex-1"
                     />
-                    <br/>
-                    <br/>
                     <button type="submit" className=" bg-sky-900 hover:bg-sky-700 shadow-inner rounded-md active:scale-98 font-semibold px-4 transition duration-150 transform hover:scale-95 text-gray-50">Submit</button>
                     <p className="font-bold text-gray-800 italic">{response}</p>
             </form>
