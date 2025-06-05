@@ -29,7 +29,7 @@ const DisplayPerson = () => {
                 setIsCool(data.isCool);
 
                 setLoaded(true);
-                setResponse("Successful Get!");
+                setResponse(firstname + "'s data:");
             }
     }, [data]);
 
